@@ -56,6 +56,7 @@ import javax.swing.JTextField;
 public class Ventana extends JFrame{
 
 	//private String logo = "logo";
+	//dasdasdasdsadas
 	private String actual = "logo";
 	private String anterior = "logo";
 
