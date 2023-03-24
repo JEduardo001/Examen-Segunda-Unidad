@@ -78,7 +78,7 @@ public class Ventana extends JFrame{
 		
 	}
 	
-	public void route() {
+		public void route() {
 		
 		if(gran_panel!=null) {
 			this.remove(gran_panel);
@@ -102,6 +102,12 @@ public class Ventana extends JFrame{
 		if(actual.equals("registro")) { 
 			gran_panel = registro();  
 		}
+		if(actual.equals("actualizarMisDatos")) { 
+			gran_panel = actualizarMisDatos();  
+		}
+		if(actual.equals("listaUsuarios")) { 
+			gran_panel = listaUsuarios();  
+		}
 		
 		this.add(gran_panel);
 		this.revalidate();
@@ -114,7 +120,7 @@ public class Ventana extends JFrame{
 		JPanel logo = new JPanel();
 		logo.setVisible(true);
 		logo.setSize(550, 600);
-		logo.setBackground(Color.decode("#221B42"));
+		logo.setBackground(Color.decode("#293F9E"));
 		logo.setLayout(null);
 	
 		
@@ -123,8 +129,16 @@ public class Ventana extends JFrame{
 		 img.setLocation(100,50);
 		logo.add(img);
 		
+		
+		 
+
+
+        
+	      
+	       
 		JButton btnEntrar = new JButton("Entrar");
 		btnEntrar.setSize(100,40);
+		btnEntrar.setBackground(Color.white);
 		btnEntrar.setLocation(200,350);
 		logo.add(btnEntrar);
 		
@@ -142,6 +156,18 @@ public class Ventana extends JFrame{
 			}});
 		
 		
+		
+		 /*btnEntrar.setBorder(new LineBorder(Color.GRAY, 10, true) {
+	            @Override
+	            public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
+	                Graphics2D g2d = (Graphics2D) g;
+	                g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+	                g2d.setColor(getLineColor());
+	                g2d.draw(new RoundRectangle2D.Double(x, y, width - 1, height - 1, 10, 10));
+	            }
+	        });*/
+		
+		
 		JLabel nameAlumno = new JLabel("José Eduardo Quirarte Arce");
 		nameAlumno.setFont(new Font("Comic Sans",Font.BOLD,23));
 		nameAlumno.setSize(400, 40);
@@ -153,6 +179,9 @@ public class Ventana extends JFrame{
 		return logo;
 	}
 	 
+
+	
+	 
 	public JPanel login() {
 		
 		JPanel login = new JPanel();
@@ -162,40 +191,41 @@ public class Ventana extends JFrame{
 		login.setLayout(null);
 		
 		JLabel tag1 = new JLabel("Inicia Sesión", JLabel.CENTER);
-		tag1.setFont(new Font("Comic Sans",Font.BOLD,23));
+		tag1.setFont(new Font("Comic Sans",Font.BOLD,26));
 		tag1.setSize(200, 40);
 		tag1.setLocation(150, 10);
-		tag1.setOpaque(true);
+		//tag1.setOpaque(true);
 		//tag1.setBackground(Color.white);
 		login.add(tag1);
 		
 		JLabel tag2 = new JLabel("Nombre de Usuario");
 		tag2.setSize(200,20);
 		tag2.setFont(new Font("Arial", Font.BOLD, 15));
-		tag2.setLocation(50,70);
+		tag2.setLocation(140,130);
 		login.add(tag2);
 		
 		JTextField mail = new JTextField();
-		mail.setSize(300, 40);
-		mail.setLocation(48, 100);
+		mail.setSize(250, 30);
+		mail.setLocation(140, 150);
 		mail.setFont(new Font("Comic Sans",Font.ITALIC,15));
 		login.add(mail);
 		
 		JLabel tag3 = new JLabel("Contraseña");
 		tag3.setSize(200, 20);
-		tag3.setLocation(50, 150);
+		tag3.setLocation(140, 200);
 		tag3.setFont(new Font("Arial", Font.BOLD, 15));
 		login.add(tag3);
 		
 		JPasswordField pwd = new JPasswordField();
-		pwd.setSize(300, 40);
-		pwd.setLocation(48, 175);
+		pwd.setSize(250, 30);
+		pwd.setLocation(140, 220);
 		login.add(pwd);
 		
 		JButton jbnAccess = new JButton("Listo");
-		jbnAccess.setSize(100,30);
-		jbnAccess.setLocation(150, 240);
+		jbnAccess.setSize(80,30);
+		jbnAccess.setLocation(270, 280);
 		login.add(jbnAccess);
+		
 		
 		jbnAccess.addActionListener(new ActionListener() {
 
@@ -210,6 +240,24 @@ public class Ventana extends JFrame{
 			}
 			
 		});
+		
+		
+		JButton btnAtras = new JButton("Cancelar");
+		btnAtras.setSize(100,30);
+		btnAtras.setLocation(150, 280);
+		login.add(btnAtras);
+		
+		
+		btnAtras.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				anterior = actual;
+				actual = "logo";
+				
+				route();
+			}});
 		
 		return login;
 	}
@@ -304,10 +352,7 @@ public class Ventana extends JFrame{
 	}
 	
 	public JPanel inicio() {
-		
-		
-				
-		
+
 		JPanel inicio = new JPanel();
 		inicio.setVisible(true);
 		inicio.setSize(550, 600);
@@ -339,9 +384,21 @@ public class Ventana extends JFrame{
 		
 		JMenuItem jmi1 = new JMenuItem("Mi Cuenta");
 		JMenuItem jmi2 = new JMenuItem("Cerrar Sesión");
-
+		
+		JMenuItem jmi3 = new JMenuItem("Lista de Usuarios");
+		JMenuItem jmi4 = new JMenuItem("Crear Usuario");
+		
+		JMenuItem jmi5 = new JMenuItem("¿Cómo crear un usuario?");
+		
 		jm1.add(jmi1);
 		jm1.add(jmi2);
+		
+		jm2.add(jmi3);
+		jm2.add(jmi4);
+		
+		jm3.add(jmi5);
+
+		
 		
 		jmi1.addActionListener(new ActionListener() {
 
@@ -352,6 +409,37 @@ public class Ventana extends JFrame{
 				actual = "miCuenta";
 				
 				route();
+			}});
+		
+		
+		jmi2.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				anterior = actual;
+				actual = "logo";
+				
+				route();
+			}});
+		
+		jmi3.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				anterior = actual;
+				actual = "listaUsuarios";
+				
+				route();
+			}});
+		
+		jmi4.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
 			}});
 		inicio.add(jmb);
 		
@@ -366,11 +454,179 @@ public class Ventana extends JFrame{
 		miCuenta.setLayout(null);
 		
 		
-		JLabel saludo = new JLabel("estas es tu cuenta ");
-		saludo.setFont(new Font("Arial", Font.BOLD, 20));
+		JLabel saludo = new JLabel("Mi Cuenta");
+		saludo.setFont(new Font("Arial", Font.BOLD, 24));
 		saludo.setSize(200,40);
 		saludo.setLocation(160,50);
 		miCuenta.add(saludo);
+		
+		
+		//MENU SUPERIOR
+		
+				JMenuBar jmb = new JMenuBar();
+			
+				this.setJMenuBar(jmb);
+				this.add(jmb);
+				JMenu jm1 = new  JMenu("Cuenta");
+				JMenu jm2 = new  JMenu("Usuarios");
+				JMenu jm3 = new  JMenu("Ayuda");
+				//para desactivar una opcion
+				//jm3.setEnabled(false);
+				jmb.add(jm1);
+				jmb.add(jm2);
+				jmb.add(jm3);
+				
+				JMenuItem jmi1 = new JMenuItem("Mi Cuenta");
+				JMenuItem jmi2 = new JMenuItem("Cerrar Sesión");
+				
+				JMenuItem jmi3 = new JMenuItem("Lista de Usuarios");
+				JMenuItem jmi4 = new JMenuItem("Crear Usuario");
+				
+				JMenuItem jmi5 = new JMenuItem("¿Cómo crear un usuario?");
+				
+				jm1.add(jmi1);
+				jm1.add(jmi2);
+				
+				jm2.add(jmi3);
+				jm2.add(jmi4);
+				
+				jm3.add(jmi5);
+				
+				
+				jmi1.addActionListener(new ActionListener() {
+
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						// TODO Auto-generated method stub
+						anterior = actual;
+						actual = "miCuenta";
+						
+						route();
+					}});
+				
+				jmi2.addActionListener(new ActionListener() {
+
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						// TODO Auto-generated method stub
+						anterior = actual;
+						actual = "logo";
+						
+						route();
+				}});
+				
+				jmi3.addActionListener(new ActionListener() {
+
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						// TODO Auto-generated method stub
+						anterior = actual;
+						actual = "listaUsuarios";
+						
+						route();
+				}});
+				
+				
+				miCuenta.add(jmb);
+				
+				
+				JLabel tag5 = new JLabel("Nombre");
+				tag5.setSize(200,20);
+				tag5.setFont(new Font("Arial", Font.BOLD, 15));
+				tag5.setLocation(100, 180);
+				tag5.setForeground(Color.white);
+				miCuenta.add(tag5);
+				
+				JTextField mail_reg = new JTextField();
+				mail_reg.setSize(300, 30);
+				mail_reg.setLocation(100, 200);
+				mail_reg.setFont(new Font("Comic Sans",Font.ITALIC,15));
+				miCuenta.add(mail_reg);
+				
+				JLabel labelApellidos = new JLabel("Apellidos");
+				labelApellidos.setSize(200,20);
+				labelApellidos.setFont(new Font("Arial", Font.BOLD, 15));
+				labelApellidos.setLocation(100, 240);
+				labelApellidos.setForeground(Color.white);
+				miCuenta.add(labelApellidos);
+				
+				JTextField textFieldApellidos = new JTextField();
+				textFieldApellidos.setSize(300, 30);
+				textFieldApellidos.setLocation(100, 260);
+				textFieldApellidos.setFont(new Font("Comic Sans",Font.ITALIC,15));
+				miCuenta.add(textFieldApellidos);
+				
+				JLabel labelEmail = new JLabel("Correo Electrónico");
+				labelEmail.setSize(200,20);
+				labelEmail.setFont(new Font("Arial", Font.BOLD, 15));
+				labelEmail.setLocation(100, 300);
+				labelEmail.setForeground(Color.white);
+				miCuenta.add(labelEmail);
+				
+				JTextField textFieldEmail = new JTextField();
+				textFieldEmail.setSize(300, 30);
+				textFieldEmail.setLocation(100, 320);
+				textFieldEmail.setFont(new Font("Comic Sans",Font.ITALIC,15));
+				miCuenta.add(textFieldEmail);
+				
+				
+				
+				
+				JLabel tag6 = new JLabel("Contraseña");
+				tag6.setSize(300, 30);
+				tag6.setLocation(100, 360);
+				tag6.setFont(new Font("Arial", Font.BOLD, 15));
+				tag6.setForeground(Color.white);
+				miCuenta.add(tag6);
+				
+				
+				
+				JTextField contrasena = new JTextField();
+				contrasena.setSize(300, 30);
+				contrasena.setLocation(100, 390);
+				contrasena.setFont(new Font("Comic Sans",Font.ITALIC,15));
+				miCuenta.add(contrasena);
+				
+				JButton btnActualizarDatos = new JButton("Actualizar Datos");
+				btnActualizarDatos.setSize(150, 35);
+				btnActualizarDatos.setLocation(260,440);
+				btnActualizarDatos.setBackground(Color.blue);
+				miCuenta.add(btnActualizarDatos);
+				
+				
+				
+				
+				btnActualizarDatos.addActionListener(new ActionListener() {
+
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						// TODO Auto-generated method stub
+						anterior = actual;
+						actual = "actualizarMisDatos";
+						
+						route();
+					}});
+				
+				
+				JButton btnVaciarDatos = new JButton("Vaciar Datos");
+				btnVaciarDatos.setSize(150, 35);
+				btnVaciarDatos.setLocation(90,440);
+				btnVaciarDatos.setBackground(Color.red);
+				miCuenta.add(btnVaciarDatos);
+				
+				
+				
+				
+				btnActualizarDatos.addActionListener(new ActionListener() {
+
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						// TODO Auto-generated method stub
+						
+					}});
+					
+					
+					
 		
 		
 		
@@ -378,4 +634,355 @@ public class Ventana extends JFrame{
 		return miCuenta;
 		
 	}
+	
+	public JPanel actualizarMisDatos() {
+		
+		JPanel miCuenta = new JPanel();
+		miCuenta.setVisible(true);
+		miCuenta.setSize(550, 800);
+		miCuenta.setBackground(Color.decode("#5A51C4"));
+		miCuenta.setLayout(null);
+		
+		
+		
+		JLabel saludo = new JLabel("Mi Cuenta");
+		saludo.setFont(new Font("Arial", Font.BOLD, 24));
+		saludo.setSize(200,40);
+		saludo.setLocation(160,50);
+		miCuenta.add(saludo);
+		
+		
+		//MENU SUPERIOR
+		
+				JMenuBar jmb = new JMenuBar();
+			
+				this.setJMenuBar(jmb);
+				this.add(jmb);
+				JMenu jm1 = new  JMenu("Cuenta");
+				JMenu jm2 = new  JMenu("Usuarios");
+				JMenu jm3 = new  JMenu("Ayuda");
+				//para desactivar una opcion
+				//jm3.setEnabled(false);
+				jmb.add(jm1);
+				jmb.add(jm2);
+				jmb.add(jm3);
+				
+				JMenuItem jmi1 = new JMenuItem("Mi Cuenta");
+				JMenuItem jmi2 = new JMenuItem("Cerrar Sesión");
+				
+				JMenuItem jmi3 = new JMenuItem("Lista de Usuarios");
+				JMenuItem jmi4 = new JMenuItem("Crear Usuario");
+				
+				JMenuItem jmi5 = new JMenuItem("¿Cómo crear un usuario?");
+				
+				jm1.add(jmi1);
+				jm1.add(jmi2);
+				
+				jm2.add(jmi3);
+				jm2.add(jmi4);
+				
+				jm3.add(jmi5);
+				
+
+				
+				jmi1.addActionListener(new ActionListener() {
+
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						// TODO Auto-generated method stub
+						anterior = actual;
+						actual = "miCuenta";
+						
+						route();
+					}});
+				
+				jmi2.addActionListener(new ActionListener() {
+
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						// TODO Auto-generated method stub
+						anterior = actual;
+						actual = "logo";
+						
+						route();
+				}});
+				
+				jmi3.addActionListener(new ActionListener() {
+
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						// TODO Auto-generated method stub
+						anterior = actual;
+						actual = "listaUsuarios";
+						
+						route();
+				}});
+				
+				
+				miCuenta.add(jmb);
+				
+				
+				JLabel tag5 = new JLabel("Nombre");
+				tag5.setSize(200,20);
+				tag5.setFont(new Font("Arial", Font.BOLD, 15));
+				tag5.setLocation(100, 180);
+				tag5.setForeground(Color.white);
+				miCuenta.add(tag5);
+				
+				JTextField mail_reg = new JTextField();
+				mail_reg.setSize(300, 30);
+				mail_reg.setLocation(100, 200);
+				mail_reg.setFont(new Font("Comic Sans",Font.ITALIC,15));
+				miCuenta.add(mail_reg);
+				
+				JLabel labelApellidos = new JLabel("Apellidos");
+				labelApellidos.setSize(200,20);
+				labelApellidos.setFont(new Font("Arial", Font.BOLD, 15));
+				labelApellidos.setLocation(100, 240);
+				labelApellidos.setForeground(Color.white);
+				miCuenta.add(labelApellidos);
+				
+				JTextField textFieldApellidos = new JTextField();
+				textFieldApellidos.setSize(300, 30);
+				textFieldApellidos.setLocation(100, 260);
+				textFieldApellidos.setFont(new Font("Comic Sans",Font.ITALIC,15));
+				miCuenta.add(textFieldApellidos);
+				
+				JLabel labelEmail = new JLabel("Correo Electrónico");
+				labelEmail.setSize(200,20);
+				labelEmail.setFont(new Font("Arial", Font.BOLD, 15));
+				labelEmail.setLocation(100, 300);
+				labelEmail.setForeground(Color.white);
+				miCuenta.add(labelEmail);
+				
+				JTextField textFieldEmail = new JTextField();
+				textFieldEmail.setSize(300, 30);
+				textFieldEmail.setLocation(100, 320);
+				textFieldEmail.setFont(new Font("Comic Sans",Font.ITALIC,15));
+				miCuenta.add(textFieldEmail);
+				
+				
+				
+				
+				JLabel tag6 = new JLabel("Contraseña");
+				tag6.setSize(300, 30);
+				tag6.setLocation(100, 360);
+				tag6.setFont(new Font("Arial", Font.BOLD, 15));
+				tag6.setForeground(Color.white);
+				miCuenta.add(tag6);
+				
+				
+				
+				JTextField contrasena = new JTextField();
+				contrasena.setSize(300, 30);
+				contrasena.setLocation(100, 390);
+				contrasena.setFont(new Font("Comic Sans",Font.ITALIC,15));
+				miCuenta.add(contrasena);
+				
+			
+					
+					
+				
+				JLabel  labelDescripcion= new JLabel("Descripción");
+				labelDescripcion.setSize(200,20);
+				labelDescripcion.setFont(new Font("Arial", Font.BOLD, 15));
+				labelDescripcion.setLocation(100, 430);
+				labelDescripcion.setForeground(Color.white);
+				miCuenta.add(labelDescripcion);
+				
+				JTextField textFieldDescripcion = new JTextField();
+				textFieldDescripcion.setSize(300, 100);
+				textFieldDescripcion.setLocation(100, 450);
+				textFieldDescripcion.setFont(new Font("Comic Sans",Font.ITALIC,15));
+				miCuenta.add(textFieldDescripcion);
+					
+				
+				JLabel comidaFav = new JLabel("Comida Favorita");
+				comidaFav.setSize(190,40);
+				comidaFav.setLocation(100,550);
+				comidaFav.setForeground(Color.white);
+				comidaFav.setFont(new Font("Arial",Font.BOLD,15));
+				miCuenta.add(comidaFav);
+				
+				JCheckBox marco1 = new JCheckBox("Boneless");
+				JCheckBox marco2= new JCheckBox("Sushi");
+				JCheckBox marco3 = new JCheckBox("Pizza");
+		  
+				marco1.setSize(120,50);
+				marco2.setSize(120,50);
+				marco3.setSize(120,50);
+
+				marco1.setLocation(50,600);
+				marco2.setLocation(200,600);
+				marco3.setLocation(350,600);
+				
+				
+				miCuenta.add(marco1);
+				miCuenta.add(marco2);
+				miCuenta.add(marco3);
+				
+				
+				JLabel colorFavorito = new JLabel("Comida Favorita");
+				comidaFav.setSize(190,40);
+				comidaFav.setLocation(100,550);
+				comidaFav.setForeground(Color.white);
+				comidaFav.setFont(new Font("Arial",Font.BOLD,15));
+				miCuenta.add(comidaFav);
+				
+				JCheckBox marco4 = new JCheckBox("Rojo");
+				JCheckBox marco5= new JCheckBox("Azul");
+				JCheckBox marco6 = new JCheckBox("Amarillo");
+		  
+				marco4.setSize(120,50);
+				marco5.setSize(120,50);
+				marco6.setSize(120,50);
+
+				marco4.setLocation(50,650);
+				marco5.setLocation(200,650);
+				marco6.setLocation(350,650);
+				
+				
+				miCuenta.add(marco4);
+				miCuenta.add(marco5);
+				miCuenta.add(marco6);
+				
+				JButton btnActualizarDatos = new JButton("Actualizar Datos");
+				btnActualizarDatos.setSize(150, 35);
+				btnActualizarDatos.setLocation(260,720);
+				btnActualizarDatos.setBackground(Color.blue);
+				miCuenta.add(btnActualizarDatos);
+				
+				
+				
+				
+				btnActualizarDatos.addActionListener(new ActionListener() {
+
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						// TODO Auto-generated method stub
+						anterior = actual;
+						actual = "actualizarMisDatos";
+						
+						route();
+					}});
+				
+				
+				JButton btnVaciarDatos = new JButton("Vaciar Datos");
+				btnVaciarDatos.setSize(150, 35);
+				btnVaciarDatos.setLocation(90,720);
+				btnVaciarDatos.setBackground(Color.red);
+				miCuenta.add(btnVaciarDatos);
+				
+				
+				
+				
+				btnActualizarDatos.addActionListener(new ActionListener() {
+
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						// TODO Auto-generated method stub
+						
+					}});
+					
+					
+		
+		
+		
+		
+		return miCuenta;
+		
+	}
+	
+	public JPanel listaUsuarios() {
+		JPanel listaUsuarios = new JPanel();
+		listaUsuarios.setVisible(true);
+		listaUsuarios.setSize(550, 600);
+		listaUsuarios.setBackground(Color.decode("#5A51C4"));
+		listaUsuarios.setLayout(null);
+		
+		
+		JLabel txtListaUsuarios = new JLabel("Lista Usuarios");
+		txtListaUsuarios.setFont(new Font("Arial", Font.BOLD, 20));
+		txtListaUsuarios.setSize(200,40);
+		txtListaUsuarios.setLocation(160,50);
+		listaUsuarios.add(txtListaUsuarios);
+		
+		
+		//MENU SUPERIOR
+		
+		JMenuBar jmb = new JMenuBar();
+	
+		this.setJMenuBar(jmb);
+		this.add(jmb);
+		JMenu jm1 = new  JMenu("Cuenta");
+		JMenu jm2 = new  JMenu("Usuarios");
+		JMenu jm3 = new  JMenu("Ayuda");
+		//para desactivar una opcion
+		//jm3.setEnabled(false);
+		jmb.add(jm1);
+		jmb.add(jm2);
+		jmb.add(jm3);
+		
+		JMenuItem jmi1 = new JMenuItem("Mi Cuenta");
+		JMenuItem jmi2 = new JMenuItem("Cerrar Sesión");
+		
+		
+		JMenuItem jmi3 = new JMenuItem("Lista de Usuarios");
+		JMenuItem jmi4 = new JMenuItem("Crear Usuario");
+		
+		JMenuItem jmi5 = new JMenuItem("¿Cómo crear un usuario?");
+		
+		jm1.add(jmi1);
+		jm1.add(jmi2);
+		
+		jm2.add(jmi3);
+		jm2.add(jmi4);
+		
+		jm3.add(jmi5);
+
+	
+		listaUsuarios.add(jmb);
+		
+		jmi1.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				anterior = actual;
+				actual = "miCuenta";
+				
+				route();
+			}});
+		
+		
+		jmi2.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				anterior = actual;
+				actual = "logo";
+				
+				route();
+			}});
+		
+		jmi3.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				anterior = actual;
+				actual = "listaUsuarios";
+				
+				route();
+			}});
+	
+		
+		
+		return listaUsuarios;
+		
+	}
+
+
+	
 }
