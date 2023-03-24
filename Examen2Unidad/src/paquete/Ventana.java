@@ -55,18 +55,19 @@ import javax.swing.JTextField;
 
 public class Ventana extends JFrame{
 
-	//private String logo = "logo";
-	//dasdasdasdsadas
-	private String actual = "logo";
+	//private String logo = "logoAA";
+	private String actual = "listaUsuarios";
 	private String anterior = "logo";
 
 	private JPanel gran_panel = null;
+	
+	
 	
 	public Ventana() {
 		
 		//configuración_básica 
 		this.setVisible(true);
-		this.setSize(550, 600);
+		this.setSize(550, 900);
 		this.setLayout(null);
 		this.setTitle("Hola mundo");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -78,7 +79,7 @@ public class Ventana extends JFrame{
 		
 	}
 	
-		public void route() {
+	public void route() {
 		
 		if(gran_panel!=null) {
 			this.remove(gran_panel);
@@ -107,6 +108,12 @@ public class Ventana extends JFrame{
 		}
 		if(actual.equals("listaUsuarios")) { 
 			gran_panel = listaUsuarios();  
+		}
+		if(actual.equals("crearNuevoUsuario")) { 
+			gran_panel = crearNuevoUsuario();  
+		}
+		if(actual.equals("ayuda")) { 
+			gran_panel = ayuda();  
 		}
 		
 		this.add(gran_panel);
@@ -359,6 +366,7 @@ public class Ventana extends JFrame{
 		inicio.setBackground(Color.decode("#5A51C4"));
 		inicio.setLayout(null);
 		
+		ponerMenuSuperior(inicio);
 		
 		JLabel saludo = new JLabel("Bienvenido Eduardo");
 		saludo.setFont(new Font("Arial", Font.BOLD, 20));
@@ -367,81 +375,7 @@ public class Ventana extends JFrame{
 		inicio.add(saludo);
 		
 		
-		//MENU SUPERIOR
 		
-		JMenuBar jmb = new JMenuBar();
-	
-		this.setJMenuBar(jmb);
-		this.add(jmb);
-		JMenu jm1 = new  JMenu("Cuenta");
-		JMenu jm2 = new  JMenu("Usuarios");
-		JMenu jm3 = new  JMenu("Ayuda");
-		//para desactivar una opcion
-		//jm3.setEnabled(false);
-		jmb.add(jm1);
-		jmb.add(jm2);
-		jmb.add(jm3);
-		
-		JMenuItem jmi1 = new JMenuItem("Mi Cuenta");
-		JMenuItem jmi2 = new JMenuItem("Cerrar Sesión");
-		
-		JMenuItem jmi3 = new JMenuItem("Lista de Usuarios");
-		JMenuItem jmi4 = new JMenuItem("Crear Usuario");
-		
-		JMenuItem jmi5 = new JMenuItem("¿Cómo crear un usuario?");
-		
-		jm1.add(jmi1);
-		jm1.add(jmi2);
-		
-		jm2.add(jmi3);
-		jm2.add(jmi4);
-		
-		jm3.add(jmi5);
-
-		
-		
-		jmi1.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				anterior = actual;
-				actual = "miCuenta";
-				
-				route();
-			}});
-		
-		
-		jmi2.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				anterior = actual;
-				actual = "logo";
-				
-				route();
-			}});
-		
-		jmi3.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				anterior = actual;
-				actual = "listaUsuarios";
-				
-				route();
-			}});
-		
-		jmi4.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				
-			}});
-		inicio.add(jmb);
 		
 		return inicio;
 	}
@@ -453,6 +387,7 @@ public class Ventana extends JFrame{
 		miCuenta.setBackground(Color.decode("#5A51C4"));
 		miCuenta.setLayout(null);
 		
+		ponerMenuSuperior(miCuenta);
 		
 		JLabel saludo = new JLabel("Mi Cuenta");
 		saludo.setFont(new Font("Arial", Font.BOLD, 24));
@@ -460,76 +395,7 @@ public class Ventana extends JFrame{
 		saludo.setLocation(160,50);
 		miCuenta.add(saludo);
 		
-		
-		//MENU SUPERIOR
-		
-				JMenuBar jmb = new JMenuBar();
-			
-				this.setJMenuBar(jmb);
-				this.add(jmb);
-				JMenu jm1 = new  JMenu("Cuenta");
-				JMenu jm2 = new  JMenu("Usuarios");
-				JMenu jm3 = new  JMenu("Ayuda");
-				//para desactivar una opcion
-				//jm3.setEnabled(false);
-				jmb.add(jm1);
-				jmb.add(jm2);
-				jmb.add(jm3);
-				
-				JMenuItem jmi1 = new JMenuItem("Mi Cuenta");
-				JMenuItem jmi2 = new JMenuItem("Cerrar Sesión");
-				
-				JMenuItem jmi3 = new JMenuItem("Lista de Usuarios");
-				JMenuItem jmi4 = new JMenuItem("Crear Usuario");
-				
-				JMenuItem jmi5 = new JMenuItem("¿Cómo crear un usuario?");
-				
-				jm1.add(jmi1);
-				jm1.add(jmi2);
-				
-				jm2.add(jmi3);
-				jm2.add(jmi4);
-				
-				jm3.add(jmi5);
-				
-				
-				jmi1.addActionListener(new ActionListener() {
 
-					@Override
-					public void actionPerformed(ActionEvent e) {
-						// TODO Auto-generated method stub
-						anterior = actual;
-						actual = "miCuenta";
-						
-						route();
-					}});
-				
-				jmi2.addActionListener(new ActionListener() {
-
-					@Override
-					public void actionPerformed(ActionEvent e) {
-						// TODO Auto-generated method stub
-						anterior = actual;
-						actual = "logo";
-						
-						route();
-				}});
-				
-				jmi3.addActionListener(new ActionListener() {
-
-					@Override
-					public void actionPerformed(ActionEvent e) {
-						// TODO Auto-generated method stub
-						anterior = actual;
-						actual = "listaUsuarios";
-						
-						route();
-				}});
-				
-				
-				miCuenta.add(jmb);
-				
-				
 				JLabel tag5 = new JLabel("Nombre");
 				tag5.setSize(200,20);
 				tag5.setFont(new Font("Arial", Font.BOLD, 15));
@@ -643,7 +509,7 @@ public class Ventana extends JFrame{
 		miCuenta.setBackground(Color.decode("#5A51C4"));
 		miCuenta.setLayout(null);
 		
-		
+		ponerDatosRegistro(miCuenta);
 		
 		JLabel saludo = new JLabel("Mi Cuenta");
 		saludo.setFont(new Font("Arial", Font.BOLD, 24));
@@ -652,82 +518,123 @@ public class Ventana extends JFrame{
 		miCuenta.add(saludo);
 		
 		
-		//MENU SUPERIOR
 		
-				JMenuBar jmb = new JMenuBar();
-			
-				this.setJMenuBar(jmb);
-				this.add(jmb);
-				JMenu jm1 = new  JMenu("Cuenta");
-				JMenu jm2 = new  JMenu("Usuarios");
-				JMenu jm3 = new  JMenu("Ayuda");
-				//para desactivar una opcion
-				//jm3.setEnabled(false);
-				jmb.add(jm1);
-				jmb.add(jm2);
-				jmb.add(jm3);
 				
-				JMenuItem jmi1 = new JMenuItem("Mi Cuenta");
-				JMenuItem jmi2 = new JMenuItem("Cerrar Sesión");
+				JButton btnActualizarDatos = new JButton("Actualizar Datos");
+				btnActualizarDatos.setSize(150, 35);
+				btnActualizarDatos.setLocation(260,720);
+				btnActualizarDatos.setBackground(Color.blue);
+				miCuenta.add(btnActualizarDatos);
 				
-				JMenuItem jmi3 = new JMenuItem("Lista de Usuarios");
-				JMenuItem jmi4 = new JMenuItem("Crear Usuario");
 				
-				JMenuItem jmi5 = new JMenuItem("¿Cómo crear un usuario?");
 				
-				jm1.add(jmi1);
-				jm1.add(jmi2);
 				
-				jm2.add(jmi3);
-				jm2.add(jmi4);
-				
-				jm3.add(jmi5);
-				
-
-				
-				jmi1.addActionListener(new ActionListener() {
+				btnActualizarDatos.addActionListener(new ActionListener() {
 
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						// TODO Auto-generated method stub
 						anterior = actual;
-						actual = "miCuenta";
+						actual = "actualizarMisDatos";
 						
 						route();
 					}});
 				
-				jmi2.addActionListener(new ActionListener() {
+				
+				JButton btnVaciarDatos = new JButton("Vaciar Datos");
+				btnVaciarDatos.setSize(150, 35);
+				btnVaciarDatos.setLocation(90,720);
+				btnVaciarDatos.setBackground(Color.red);
+				miCuenta.add(btnVaciarDatos);
+				
+				
+				
+				
+				btnActualizarDatos.addActionListener(new ActionListener() {
 
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						// TODO Auto-generated method stub
-						anterior = actual;
-						actual = "logo";
 						
-						route();
-				}});
-				
-				jmi3.addActionListener(new ActionListener() {
+					}});
+					
+					
+		
+		
+		
+		
+		return miCuenta;
+		
+	}
+	
+	public JPanel listaUsuarios() {
+		JPanel listaUsuarios = new JPanel();
+		listaUsuarios.setVisible(true);
+		listaUsuarios.setSize(550, 600);
+		listaUsuarios.setBackground(Color.decode("#5A51C4"));
+		listaUsuarios.setLayout(null);
+		
+		ponerMenuSuperior(listaUsuarios);
+		
+		
+		JLabel txtListaUsuarios = new JLabel("Lista Usuarios");
+		txtListaUsuarios.setFont(new Font("Arial", Font.BOLD, 20));
+		txtListaUsuarios.setSize(200,40);
+		txtListaUsuarios.setLocation(160,50);
+		listaUsuarios.add(txtListaUsuarios);
+		
+		
+	
+		JButton btnEliminar = new JButton("Eliminar");
+		btnEliminar.setSize(50,50);
+		
+		 String [] nombresColumnas= {"Usuario","Nombre","Acciones"};
+		 Object [][] datosFila= {
+				{"Edu","Eduardo",btnEliminar},
+				{"Edu","Eduardo",btnEliminar}
+			
+		
+		};
+		 
+		btnEliminar.addActionListener(new ActionListener() {
 
-					@Override
-					public void actionPerformed(ActionEvent e) {
-						// TODO Auto-generated method stub
-						anterior = actual;
-						actual = "listaUsuarios";
-						
-						route();
-				}});
-				
-				
-				miCuenta.add(jmb);
-				
-				
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				System.out.println("holaa");
+			}});
+	     
+	      String n="edas";
+		 DefaultTableModel mod = new DefaultTableModel(datosFila,nombresColumnas);
+		 JTable tablaUsuarios = new JTable(mod);
+		 JScrollPane scroll = new JScrollPane(tablaUsuarios);
+		 tablaUsuarios.getColumn("Acciones").setCellRenderer(new tabla(n));
+		 scroll.setBounds(80,250,400,200);
+			
+					
+		listaUsuarios.add(scroll);
+		
+		
+		
+		
+		
+		return listaUsuarios;
+		
+	}
+	
+	//esta funcion es para reutilizar el codigo que tiene el momento de crear un nuevo usuario y modificar los datos de uno
+	//ya existenete aqui va lo que pide para hacerlo en ambos casos, como correo, contrasena, usuario etc
+	public JPanel ponerDatosRegistro(JPanel miCuenta) {
+	
+		
+			ponerMenuSuperior(miCuenta);
 				JLabel tag5 = new JLabel("Nombre");
 				tag5.setSize(200,20);
 				tag5.setFont(new Font("Arial", Font.BOLD, 15));
 				tag5.setLocation(100, 180);
 				tag5.setForeground(Color.white);
 				miCuenta.add(tag5);
+				
 				
 				JTextField mail_reg = new JTextField();
 				mail_reg.setSize(300, 30);
@@ -846,6 +753,27 @@ public class Ventana extends JFrame{
 				miCuenta.add(marco5);
 				miCuenta.add(marco6);
 				
+				
+				return miCuenta;
+	}
+	public JPanel crearNuevoUsuario() {
+		
+		
+		JPanel miCuenta = new JPanel();
+		miCuenta.setVisible(true);
+		miCuenta.setSize(550, 800);
+		miCuenta.setBackground(Color.decode("#5A51C4"));
+		miCuenta.setLayout(null);
+		
+		ponerDatosRegistro(miCuenta);
+		
+		
+		JLabel saludo = new JLabel("Crear Usuario");
+		saludo.setFont(new Font("Arial", Font.BOLD, 24));
+		saludo.setSize(200,40);
+		saludo.setLocation(160,50);
+		miCuenta.add(saludo);
+				
 				JButton btnActualizarDatos = new JButton("Actualizar Datos");
 				btnActualizarDatos.setSize(150, 35);
 				btnActualizarDatos.setLocation(260,720);
@@ -892,95 +820,130 @@ public class Ventana extends JFrame{
 		return miCuenta;
 		
 	}
-	
-	public JPanel listaUsuarios() {
-		JPanel listaUsuarios = new JPanel();
-		listaUsuarios.setVisible(true);
-		listaUsuarios.setSize(550, 600);
-		listaUsuarios.setBackground(Color.decode("#5A51C4"));
-		listaUsuarios.setLayout(null);
-		
-		
-		JLabel txtListaUsuarios = new JLabel("Lista Usuarios");
-		txtListaUsuarios.setFont(new Font("Arial", Font.BOLD, 20));
-		txtListaUsuarios.setSize(200,40);
-		txtListaUsuarios.setLocation(160,50);
-		listaUsuarios.add(txtListaUsuarios);
-		
-		
+	public JPanel ponerMenuSuperior(JPanel panel) {
+
 		//MENU SUPERIOR
 		
-		JMenuBar jmb = new JMenuBar();
-	
-		this.setJMenuBar(jmb);
-		this.add(jmb);
-		JMenu jm1 = new  JMenu("Cuenta");
-		JMenu jm2 = new  JMenu("Usuarios");
-		JMenu jm3 = new  JMenu("Ayuda");
-		//para desactivar una opcion
-		//jm3.setEnabled(false);
-		jmb.add(jm1);
-		jmb.add(jm2);
-		jmb.add(jm3);
-		
-		JMenuItem jmi1 = new JMenuItem("Mi Cuenta");
-		JMenuItem jmi2 = new JMenuItem("Cerrar Sesión");
-		
-		
-		JMenuItem jmi3 = new JMenuItem("Lista de Usuarios");
-		JMenuItem jmi4 = new JMenuItem("Crear Usuario");
-		
-		JMenuItem jmi5 = new JMenuItem("¿Cómo crear un usuario?");
-		
-		jm1.add(jmi1);
-		jm1.add(jmi2);
-		
-		jm2.add(jmi3);
-		jm2.add(jmi4);
-		
-		jm3.add(jmi5);
-
-	
-		listaUsuarios.add(jmb);
-		
-		jmi1.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				anterior = actual;
-				actual = "miCuenta";
+				JMenuBar jmb = new JMenuBar();
+			
+				this.setJMenuBar(jmb);
+				this.add(jmb);
+				JMenu jm1 = new  JMenu("Cuenta");
+				JMenu jm2 = new  JMenu("Usuarios");
+				JMenu jm3 = new  JMenu("Ayuda");
+				//para desactivar una opcion
+				//jm3.setEnabled(false);
+				jmb.add(jm1);
+				jmb.add(jm2);
+				jmb.add(jm3);
 				
-				route();
-			}});
-		
-		
-		jmi2.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				anterior = actual;
-				actual = "logo";
+				JMenuItem jmi1 = new JMenuItem("Mi Cuenta");
+				JMenuItem jmi2 = new JMenuItem("Cerrar Sesión");
 				
-				route();
-			}});
-		
-		jmi3.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				anterior = actual;
-				actual = "listaUsuarios";
+				JMenuItem jmi3 = new JMenuItem("Lista de Usuarios");
+				JMenuItem jmi4 = new JMenuItem("Crear Usuario");
 				
-				route();
-			}});
-	
+				JMenuItem jmi5 = new JMenuItem("¿Cómo crear un usuario?");
+				
+				jm1.add(jmi1);
+				jm1.add(jmi2);
+				
+				jm2.add(jmi3);
+				jm2.add(jmi4);
+				
+				jm3.add(jmi5);
+				
+
+				
+				jmi1.addActionListener(new ActionListener() {
+
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						// TODO Auto-generated method stub
+						anterior = actual;
+						actual = "miCuenta";
+						
+						route();
+					}});
+				
+				jmi2.addActionListener(new ActionListener() {
+
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						// TODO Auto-generated method stub
+						anterior = actual;
+						actual = "logo";
+						
+						route();
+				}});
+				
+				jmi3.addActionListener(new ActionListener() {
+
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						// TODO Auto-generated method stub
+						anterior = actual;
+						actual = "listaUsuarios";
+						
+						route();
+				}});
+				
+				jmi4.addActionListener(new ActionListener() {
+
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						// TODO Auto-generated method stub
+						anterior = actual;
+						actual = "crearNuevoUsuario";
+						
+						route();
+				}});
+				jmi5.addActionListener(new ActionListener() {
+
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						// TODO Auto-generated method stub
+						anterior = actual;
+						actual = "ayuda";
+						
+						route();
+					}});
+				
+				panel.add(jmb);
+
 		
 		
-		return listaUsuarios;
+		return panel;
+	}
+	public JPanel ayuda() {
 		
+		JPanel panelAyuda = new JPanel();
+		panelAyuda.setVisible(true);
+		panelAyuda.setSize(550, 800);
+		panelAyuda.setBackground(Color.decode("#5A51C4"));
+		panelAyuda.setLayout(null);
+		
+		
+		ponerMenuSuperior(panelAyuda);
+
+		JLabel label = new JLabel("¿Cómo crear un usuario?");
+		label.setFont(new Font("Arial", Font.BOLD, 24));
+		label.setSize(400,40);
+		label.setLocation(160,50);
+		panelAyuda.add(label);
+		
+		
+
+		JLabel instruccionCrearUsuario = new JLabel("dfkjlh<sh<h<hs<hs<hs<hs<hs<hs<hs<hs<hs<hshshssssgsbrwoihgoi"+"\n DAISHDOAIHDOIASHD");
+		instruccionCrearUsuario.setFont(new Font("Arial", Font.BOLD, 24));
+		instruccionCrearUsuario.setSize(600,40);
+		instruccionCrearUsuario.setLocation(160,200);
+		panelAyuda.add(instruccionCrearUsuario);
+		
+		
+		
+		
+		return panelAyuda;
 	}
 
 
