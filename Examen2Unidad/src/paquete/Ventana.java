@@ -67,7 +67,7 @@ import javax.swing.JTextField;
 public class Ventana extends JFrame{
 
 	//private String logo = "logoAA7799";
-	private String actual = "logo";
+	private String actual = "actualizarMisDatos";
 	private String anterior = "logo";
 
 	private JPanel gran_panel = null;
@@ -77,7 +77,7 @@ public class Ventana extends JFrame{
 	private JTextField textFieldNombreUser = new JTextField();
 	private JTextField textFieldEmail = new JTextField();
 	private JTextField textFieldContrasena = new JTextField();
-	private JTextField textFieldDescripcion = new JTextField();
+	private JTextArea textAreaDescripcion = new JTextArea();
 	
 	
 	
@@ -169,7 +169,7 @@ public class Ventana extends JFrame{
 		logo.add(labelImg);
 
 		
-		RoundJButton btnEntrar = new RoundJButton();
+		RoundJButton btnEntrar = new RoundJButton("#D3E9EB");
 		btnEntrar.setText("Empezar");
 		btnEntrar.setSize(100,40);
 		btnEntrar.setBackground(Color.white);
@@ -207,55 +207,65 @@ public class Ventana extends JFrame{
 		
 		JPanel login = new JPanel();
 		login.setVisible(true);
-		login.setSize(550, 600);
+		login.setSize(550, 900);
 		login.setBackground(Color.decode("#5A51C4"));
 		login.setLayout(null);
 		
-		JPanel aviso = new JPanel();
+		/*JPanel aviso = new JPanel();
 		aviso.setVisible(true);
 		aviso.setSize(300, 400);
 		aviso.setLocation(100,250);
 		aviso.setBackground(Color.decode("#5A51C4"));
-		aviso.setLayout(null);
+		aviso.setLayout(null);*/
 		
-		
-	
 		
 		
 		JLabel tag1 = new JLabel("Inicia Sesión", JLabel.CENTER);
-		tag1.setFont(new Font("Comic Sans",Font.BOLD,26));
-		tag1.setSize(200, 40);
-		tag1.setLocation(150, 10);
+		tag1.setFont(new Font("Comic Sans",Font.BOLD,36));
+		tag1.setSize(300, 40);
+		tag1.setLocation(120, 30);
 		//tag1.setOpaque(true);
 		//tag1.setBackground(Color.white);
 		login.add(tag1);
 		
+		ImageIcon imagen = new ImageIcon("login.png");
+
+		RoundJLabel labelImg = new RoundJLabel();
+		labelImg.setSize(200,230);
+		labelImg.setLocation(170,90);
+		labelImg.setIcon(new ImageIcon(imagen.getImage().getScaledInstance(200, 200 , Image.SCALE_SMOOTH)));
+		login.add(labelImg);
+		
+		
 		JLabel tag2 = new JLabel("Nombre de Usuario");
-		tag2.setSize(200,20);
-		tag2.setFont(new Font("Arial", Font.BOLD, 15));
-		tag2.setLocation(140,130);
+		tag2.setSize(200,40);
+		tag2.setFont(new Font("Arial", Font.BOLD, 19));
+		tag2.setLocation(140,340);
 		login.add(tag2);
 		
-		JTextField textFieldnombreUsuario = new JTextField();
+		RoundJTextField textFieldnombreUsuario = new RoundJTextField();
 		textFieldnombreUsuario.setSize(250, 30);
-		textFieldnombreUsuario.setLocation(140, 150);
+		textFieldnombreUsuario.setLocation(140, 380);
 		textFieldnombreUsuario.setFont(new Font("Comic Sans",Font.ITALIC,15));
 		login.add(textFieldnombreUsuario);
 		
 		JLabel tag3 = new JLabel("Contraseña");
 		tag3.setSize(200, 20);
-		tag3.setLocation(140, 200);
-		tag3.setFont(new Font("Arial", Font.BOLD, 15));
+		tag3.setLocation(140, 430);
+		tag3.setFont(new Font("Arial", Font.BOLD, 19));
 		login.add(tag3);
 		
-		JPasswordField pwd = new JPasswordField();
+		RoundJPasswordField pwd = new RoundJPasswordField();
+		pwd.setFont(new Font("Comic Sans",Font.ITALIC,15));
 		pwd.setSize(250, 30);
-		pwd.setLocation(140, 220);
+		pwd.setLocation(140, 450);
 		login.add(pwd);
 		
-		JButton jbnAccess = new JButton("Listo");
+		RoundJButton jbnAccess = new RoundJButton("#54EB9A");
+		jbnAccess.setText("Listo");
 		jbnAccess.setSize(80,30);
-		jbnAccess.setLocation(270, 280);
+		jbnAccess.setBackground(Color.white);
+		jbnAccess.setLocation(270, 510);
 		login.add(jbnAccess);
 		
 		
@@ -354,10 +364,11 @@ public class Ventana extends JFrame{
 		});
 		
 		
-		
-		JButton btnAtras = new JButton("Cancelar");
+		RoundJButton btnAtras = new RoundJButton("#EA5C4E");
+		btnAtras.setText("Cancelar");
+		btnAtras.setBackground(Color.white);
 		btnAtras.setSize(100,30);
-		btnAtras.setLocation(150, 280);
+		btnAtras.setLocation(150, 510);
 		login.add(btnAtras);
 		
 		
@@ -374,7 +385,7 @@ public class Ventana extends JFrame{
 		
 		return login;
 	}
-	
+
 	
 	public JPanel registro() {
 		
@@ -468,17 +479,25 @@ public class Ventana extends JFrame{
 
 		JPanel inicio = new JPanel();
 		inicio.setVisible(true);
-		inicio.setSize(550, 600);
+		inicio.setSize(550, 900);
 		inicio.setBackground(Color.decode("#5A51C4"));
 		inicio.setLayout(null);
 		
 		ponerMenuSuperior(inicio);
 		
 		JLabel saludo = new JLabel("Bienvenido "+nombreUsuario);
-		saludo.setFont(new Font("Arial", Font.BOLD, 20));
-		saludo.setSize(200,40);
-		saludo.setLocation(160,50);
+		saludo.setFont(new Font("Arial", Font.BOLD, 36));
+		saludo.setSize(500,40);
+		saludo.setLocation(140,100);
 		inicio.add(saludo);
+		
+		ImageIcon imagen = new ImageIcon("perfil.png");
+
+		RoundJLabel labelImg = new RoundJLabel();
+		labelImg.setSize(200,230);
+		labelImg.setLocation(170,240);
+		labelImg.setIcon(new ImageIcon(imagen.getImage().getScaledInstance(200, 200 , Image.SCALE_SMOOTH)));
+		inicio.add(labelImg);
 		
 		
 		
@@ -489,55 +508,55 @@ public class Ventana extends JFrame{
 	public JPanel miCuenta() {
 		JPanel miCuenta = new JPanel();
 		miCuenta.setVisible(true);
-		miCuenta.setSize(550, 600);
+		miCuenta.setSize(550, 900);
 		miCuenta.setBackground(Color.decode("#5A51C4"));
 		miCuenta.setLayout(null);
 		
 		ponerMenuSuperior(miCuenta);
 		
 		JLabel saludo = new JLabel("Mi Cuenta");
-		saludo.setFont(new Font("Arial", Font.BOLD, 24));
+		saludo.setFont(new Font("Arial", Font.BOLD, 34));
 		saludo.setSize(200,40);
-		saludo.setLocation(160,50);
+		saludo.setLocation(180,50);
 		miCuenta.add(saludo);
 		
 
 				JLabel tag5 = new JLabel("Nombre");
 				tag5.setSize(200,20);
-				tag5.setFont(new Font("Arial", Font.BOLD, 15));
+				tag5.setFont(new Font("Arial", Font.BOLD, 19));
 				tag5.setLocation(100, 180);
 				tag5.setForeground(Color.white);
 				miCuenta.add(tag5);
 				
 				JTextField  nombrePersona= new JTextField();
 				nombrePersona.setSize(300, 30);
-				nombrePersona.setLocation(100, 200);
+				nombrePersona.setLocation(100, 220);
 				nombrePersona.setFont(new Font("Comic Sans",Font.ITALIC,15));
 				miCuenta.add(nombrePersona);
 				
-				JLabel nombreUsuario = new JLabel("Apellidos");
+				JLabel nombreUsuario = new JLabel("Nombre de Usuario");
 				nombreUsuario.setSize(200,20);
-				nombreUsuario.setFont(new Font("Arial", Font.BOLD, 15));
-				nombreUsuario.setLocation(100, 240);
+				nombreUsuario.setFont(new Font("Arial", Font.BOLD, 19));
+				nombreUsuario.setLocation(100, 270);
 				nombreUsuario.setForeground(Color.white);
 				miCuenta.add(nombreUsuario);
 				
 				JTextField textFieldNombreUsuario = new JTextField();
 				textFieldNombreUsuario.setSize(300, 30);
-				textFieldNombreUsuario.setLocation(100, 260);
+				textFieldNombreUsuario.setLocation(100, 300);
 				textFieldNombreUsuario.setFont(new Font("Comic Sans",Font.ITALIC,15));
 				miCuenta.add(textFieldNombreUsuario);
 				
 				JLabel labelEmail = new JLabel("Correo Electrónico");
 				labelEmail.setSize(200,20);
-				labelEmail.setFont(new Font("Arial", Font.BOLD, 15));
-				labelEmail.setLocation(100, 300);
+				labelEmail.setFont(new Font("Arial", Font.BOLD, 19));
+				labelEmail.setLocation(100, 345);
 				labelEmail.setForeground(Color.white);
 				miCuenta.add(labelEmail);
 				
 				JTextField textFieldEmail = new JTextField();
 				textFieldEmail.setSize(300, 30);
-				textFieldEmail.setLocation(100, 320);
+				textFieldEmail.setLocation(100, 370);
 				textFieldEmail.setFont(new Font("Comic Sans",Font.ITALIC,15));
 				miCuenta.add(textFieldEmail);
 				
@@ -546,8 +565,8 @@ public class Ventana extends JFrame{
 				
 				JLabel tag6 = new JLabel("Contraseña");
 				tag6.setSize(300, 30);
-				tag6.setLocation(100, 360);
-				tag6.setFont(new Font("Arial", Font.BOLD, 15));
+				tag6.setLocation(100, 410);
+				tag6.setFont(new Font("Arial", Font.BOLD, 19));
 				tag6.setForeground(Color.white);
 				miCuenta.add(tag6);
 				
@@ -555,7 +574,7 @@ public class Ventana extends JFrame{
 				
 				JTextField contrasena = new JTextField();
 				contrasena.setSize(300, 30);
-				contrasena.setLocation(100, 390);
+				contrasena.setLocation(100, 450);
 				contrasena.setFont(new Font("Comic Sans",Font.ITALIC,15));
 				miCuenta.add(contrasena);
 				
@@ -567,10 +586,11 @@ public class Ventana extends JFrame{
 				textFieldEmail.setText(datosUsuario[2]);
 				contrasena.setText(datosUsuario[3]);
 				
-				JButton btnActualizarDatos = new JButton("Actualizar Datos");
+				RoundJButton btnActualizarDatos = new RoundJButton("#54EB9A");
+				btnActualizarDatos.setText("Actualizar Datos");
 				btnActualizarDatos.setSize(150, 35);
-				btnActualizarDatos.setLocation(260,440);
-				btnActualizarDatos.setBackground(Color.blue);
+				btnActualizarDatos.setLocation(260,515);
+				btnActualizarDatos.setBackground(Color.decode("#38BDE2"));
 				miCuenta.add(btnActualizarDatos);
 				
 				
@@ -591,9 +611,10 @@ public class Ventana extends JFrame{
 					}});
 				
 				
-				JButton btnCancelar = new JButton("Cancelar");
+				RoundJButton btnCancelar = new RoundJButton("#EB5041");
+				btnCancelar.setText("Cancelar");
 				btnCancelar.setSize(150, 35);
-				btnCancelar.setLocation(90,440);
+				btnCancelar.setLocation(90,515);
 				btnCancelar.setBackground(Color.red);
 				miCuenta.add(btnCancelar);
 				
@@ -626,16 +647,16 @@ public class Ventana extends JFrame{
 		
 		JPanel miCuenta = new JPanel();
 		miCuenta.setVisible(true);
-		miCuenta.setSize(550, 800);
+		miCuenta.setSize(550, 900);
 		miCuenta.setBackground(Color.decode("#5A51C4"));
 		miCuenta.setLayout(null);
 		
 		ponerDatosRegistro(miCuenta);
 		
 		JLabel saludo = new JLabel("Mi Cuenta");
-		saludo.setFont(new Font("Arial", Font.BOLD, 24));
+		saludo.setFont(new Font("Arial", Font.BOLD, 34));
 		saludo.setSize(200,40);
-		saludo.setLocation(160,50);
+		saludo.setLocation(160,80);
 		miCuenta.add(saludo);
 		
 		//ponemos por defecto los datos que ya tiene el usuario en los campos, si los desea cambiar solo los cambia y 
@@ -644,12 +665,13 @@ public class Ventana extends JFrame{
 		textFieldNombreUser.setText(datos[1]);
 		textFieldEmail.setText(datos[2]);
 		textFieldContrasena.setText(datos[3]);
-		textFieldDescripcion.setText(datos[4]);
+		textAreaDescripcion.setText(datos[4]);
 				
 		
-				JButton btnActualizarDatos = new JButton("Actualizar Datos");
+		RoundJButton btnActualizarDatos = new RoundJButton("#54EB9A");
+		btnActualizarDatos.setText("Actualizar Datos");
 				btnActualizarDatos.setSize(150, 35);
-				btnActualizarDatos.setLocation(260,720);
+				btnActualizarDatos.setLocation(260,750);
 				btnActualizarDatos.setBackground(Color.blue);
 				miCuenta.add(btnActualizarDatos);
 				
@@ -669,7 +691,7 @@ public class Ventana extends JFrame{
 						 datosUsuario[1]=textFieldNombreUser.getText();
 						 datosUsuario[2]=textFieldEmail.getText();
 						 datosUsuario[3]=textFieldContrasena.getText();
-						 datosUsuario[4]=textFieldDescripcion.getText();
+						 datosUsuario[4]=textAreaDescripcion.getText();
 
 						 
 						 File archivo = new File("users.txt");
@@ -729,9 +751,10 @@ public class Ventana extends JFrame{
 					}});
 				
 				
-				JButton btncCancelar = new JButton("Cancelar");
+				RoundJButton btncCancelar = new RoundJButton("#EB5041");
+				btncCancelar.setText("Cancelar");
 				btncCancelar.setSize(150, 35);
-				btncCancelar.setLocation(90,720);
+				btncCancelar.setLocation(90,750);
 				btncCancelar.setBackground(Color.red);
 				miCuenta.add(btncCancelar);
 				
@@ -761,7 +784,7 @@ public class Ventana extends JFrame{
 	public JPanel listaUsuarios() {
 		JPanel listaUsuarios = new JPanel();
 		listaUsuarios.setVisible(true);
-		listaUsuarios.setSize(550, 600);
+		listaUsuarios.setSize(550, 900);
 		listaUsuarios.setBackground(Color.decode("#5A51C4"));
 		listaUsuarios.setLayout(null);
 		
@@ -769,21 +792,23 @@ public class Ventana extends JFrame{
 		
 		
 		JLabel txtListaUsuarios = new JLabel("Lista De Usuarios");
-		txtListaUsuarios.setFont(new Font("Arial", Font.BOLD, 20));
-		txtListaUsuarios.setSize(200,40);
-		txtListaUsuarios.setLocation(160,50);
+		txtListaUsuarios.setFont(new Font("Arial", Font.BOLD, 34));
+		txtListaUsuarios.setSize(400,40);
+		txtListaUsuarios.setLocation(120,80);
 		listaUsuarios.add(txtListaUsuarios);
 		
 		JComboBox listaUser = new JComboBox();
 		listaUser.setSize(300,40);
-		listaUser.setLocation(90,120);
+		listaUser.setLocation(90,200);
 		listaUser.addItem("Editar a: "+datosUsuario[0]);
 		listaUser.addItem("dadas");
 		listaUsuarios.add(listaUser);
 		
-		JButton editarUser= new JButton("Editar a: "+datosUsuario[0]);
+		RoundJButton editarUser= new RoundJButton("#54EB9A");
+		editarUser.setText("Editar a: "+datosUsuario[0]);
+		editarUser.setBackground(Color.red);
 		editarUser.setSize(200,40);
-		editarUser.setLocation(140,190);
+		editarUser.setLocation(160,290);
 		listaUsuarios.add(editarUser);
 		
 		
@@ -858,6 +883,7 @@ public class Ventana extends JFrame{
 				}
 				
 			}
+			System.out.println("tamano: "+cantFilas);
 			//tabla
 			 String [] nombresColumnas= {"Nombre","Nombre de Usuario","Correo Electrónico","Contraseña","Descripción","Acciones"};
 			
@@ -918,7 +944,7 @@ public class Ventana extends JFrame{
 			 JScrollPane scroll = new JScrollPane(tablaUsuarios);
 
 			 tablaUsuarios.getColumn("Acciones").setCellRenderer(new tabla());
-			 scroll.setBounds(80,250,400,200);
+			 scroll.setBounds(80,400,400,100);
 				
 				
 				
@@ -936,7 +962,7 @@ public class Ventana extends JFrame{
 			ponerMenuSuperior(miCuenta);
 				JLabel tag5 = new JLabel("Nombre");
 				tag5.setSize(200,20);
-				tag5.setFont(new Font("Arial", Font.BOLD, 15));
+				tag5.setFont(new Font("Arial", Font.BOLD, 19));
 				tag5.setLocation(100, 180);
 				tag5.setForeground(Color.white);
 				miCuenta.add(tag5);
@@ -950,7 +976,7 @@ public class Ventana extends JFrame{
 				
 				JLabel labelUser= new JLabel("Usuario");
 				labelUser.setSize(200,20);
-				labelUser.setFont(new Font("Arial", Font.BOLD, 15));
+				labelUser.setFont(new Font("Arial", Font.BOLD, 19));
 				labelUser.setLocation(100, 240);
 				labelUser.setForeground(Color.white);
 				miCuenta.add(labelUser);
@@ -958,12 +984,12 @@ public class Ventana extends JFrame{
 				
 				textFieldNombreUser.setSize(300, 30);
 				textFieldNombreUser.setLocation(100, 260);
-				textFieldNombreUser.setFont(new Font("Comic Sans",Font.ITALIC,15));
+				textFieldNombreUser.setFont(new Font("Comic Sans",Font.ITALIC,19));
 				miCuenta.add(textFieldNombreUser);
 				
 				JLabel labelEmail = new JLabel("Correo Electrónico");
 				labelEmail.setSize(200,20);
-				labelEmail.setFont(new Font("Arial", Font.BOLD, 15));
+				labelEmail.setFont(new Font("Arial", Font.BOLD, 19));
 				labelEmail.setLocation(100, 300);
 				labelEmail.setForeground(Color.white);
 				miCuenta.add(labelEmail);
@@ -971,7 +997,7 @@ public class Ventana extends JFrame{
 				
 				textFieldEmail.setSize(300, 30);
 				textFieldEmail.setLocation(100, 320);
-				textFieldEmail.setFont(new Font("Comic Sans",Font.ITALIC,15));
+				textFieldEmail.setFont(new Font("Comic Sans",Font.ITALIC,19));
 				miCuenta.add(textFieldEmail);
 				
 				
@@ -980,7 +1006,7 @@ public class Ventana extends JFrame{
 				JLabel tag6 = new JLabel("Contraseña");
 				tag6.setSize(300, 30);
 				tag6.setLocation(100, 360);
-				tag6.setFont(new Font("Arial", Font.BOLD, 15));
+				tag6.setFont(new Font("Arial", Font.BOLD, 19));
 				tag6.setForeground(Color.white);
 				miCuenta.add(tag6);
 				
@@ -998,32 +1024,39 @@ public class Ventana extends JFrame{
 				
 				JLabel  labelDescripcion= new JLabel("Descripción");
 				labelDescripcion.setSize(200,20);
-				labelDescripcion.setFont(new Font("Arial", Font.BOLD, 15));
+				labelDescripcion.setFont(new Font("Arial", Font.BOLD, 19));
 				labelDescripcion.setLocation(100, 430);
 				labelDescripcion.setForeground(Color.white);
 				miCuenta.add(labelDescripcion);
 				
 				
-				textFieldDescripcion.setSize(300, 100);
-				textFieldDescripcion.setLocation(100, 450);
-				textFieldDescripcion.setFont(new Font("Comic Sans",Font.ITALIC,15));
-				miCuenta.add(textFieldDescripcion);
+				textAreaDescripcion.setSize(300, 100);
+				textAreaDescripcion.setLocation(100, 450);
+				textAreaDescripcion.setFont(new Font("Comic Sans",Font.ITALIC,14));
+				miCuenta.add(textAreaDescripcion);
 					
 				
 				JLabel comidaFav = new JLabel("Comida Favorita");
 				comidaFav.setSize(190,40);
-				comidaFav.setLocation(100,550);
+				comidaFav.setLocation(100,555);
 				comidaFav.setForeground(Color.white);
-				comidaFav.setFont(new Font("Arial",Font.BOLD,15));
+				comidaFav.setFont(new Font("Arial",Font.BOLD,19));
 				miCuenta.add(comidaFav);
 				
 				JCheckBox marco1 = new JCheckBox("Boneless");
 				JCheckBox marco2= new JCheckBox("Sushi");
 				JCheckBox marco3 = new JCheckBox("Pizza");
 		  
-				marco1.setSize(120,50);
-				marco2.setSize(120,50);
-				marco3.setSize(120,50);
+				
+				marco1.setBackground(Color.decode("#56D5F0"));
+				marco2.setBackground(Color.decode("#D58FF0"));
+				marco3.setBackground(Color.decode("#B0D7F5"));
+				
+				
+				
+				marco1.setSize(120,30);
+				marco2.setSize(120,30);
+				marco3.setSize(120,30);
 
 				marco1.setLocation(50,600);
 				marco2.setLocation(200,600);
@@ -1035,24 +1068,28 @@ public class Ventana extends JFrame{
 				miCuenta.add(marco3);
 				
 				
-				JLabel colorFavorito = new JLabel("Comida Favorita");
-				comidaFav.setSize(190,40);
-				comidaFav.setLocation(100,550);
-				comidaFav.setForeground(Color.white);
-				comidaFav.setFont(new Font("Arial",Font.BOLD,15));
-				miCuenta.add(comidaFav);
+				JLabel colorFavorito = new JLabel("Color Favorito");
+				colorFavorito.setSize(190,40);
+				colorFavorito.setLocation(100,635);
+				colorFavorito.setForeground(Color.white);
+				colorFavorito.setFont(new Font("Arial",Font.BOLD,19));
+				miCuenta.add(colorFavorito);
 				
 				JCheckBox marco4 = new JCheckBox("Rojo");
 				JCheckBox marco5= new JCheckBox("Azul");
 				JCheckBox marco6 = new JCheckBox("Amarillo");
 		  
-				marco4.setSize(120,50);
-				marco5.setSize(120,50);
-				marco6.setSize(120,50);
+				marco4.setBackground(Color.decode("#F55857"));
+				marco5.setBackground(Color.decode("#5580FA"));
+				marco6.setBackground(Color.decode("#FAE855"));
+				
+				marco4.setSize(120,30);
+				marco5.setSize(120,30);
+				marco6.setSize(120,30);
 
-				marco4.setLocation(50,650);
-				marco5.setLocation(200,650);
-				marco6.setLocation(350,650);
+				marco4.setLocation(50,680);
+				marco5.setLocation(200,680);
+				marco6.setLocation(350,680);
 				
 				
 				miCuenta.add(marco4);
@@ -1067,7 +1104,7 @@ public class Ventana extends JFrame{
 		
 		JPanel miCuenta = new JPanel();
 		miCuenta.setVisible(true);
-		miCuenta.setSize(550, 800);
+		miCuenta.setSize(550, 900);
 		miCuenta.setBackground(Color.decode("#5A51C4"));
 		miCuenta.setLayout(null);
 		
@@ -1075,14 +1112,16 @@ public class Ventana extends JFrame{
 		
 		
 		JLabel saludo = new JLabel("Crear Usuario");
-		saludo.setFont(new Font("Arial", Font.BOLD, 24));
-		saludo.setSize(200,40);
-		saludo.setLocation(160,50);
+		saludo.setFont(new Font("Arial", Font.BOLD, 34));
+		saludo.setSize(500,40);
+		saludo.setLocation(140,80);
 		miCuenta.add(saludo);
+		
 				
-				JButton btnCrearNuevoUsuario = new JButton("Actualizar Datos");
+				RoundJButton btnCrearNuevoUsuario = new RoundJButton("#54EB9A");
+				btnCrearNuevoUsuario.setText("Crear Usuario");
 				btnCrearNuevoUsuario.setSize(150, 35);
-				btnCrearNuevoUsuario.setLocation(260,720);
+				btnCrearNuevoUsuario.setLocation(260,750);
 				btnCrearNuevoUsuario.setBackground(Color.blue);
 				miCuenta.add(btnCrearNuevoUsuario);
 				
@@ -1099,7 +1138,7 @@ public class Ventana extends JFrame{
 						String nombreUser = textFieldNombreUser.getText();
 						String email = textFieldEmail.getText();
 						String contrasena = textFieldContrasena.getText();
-						String descripcion = textFieldDescripcion.getText();
+						String descripcion = textAreaDescripcion.getText();
 				
 						if(nombreUser.equals("") || contrasena.equals("")) {
 							JOptionPane.showMessageDialog(null,"Error, Los campos nombre de usuario y contraseña no pueden estar vacios ");
@@ -1144,10 +1183,10 @@ public class Ventana extends JFrame{
 			
 					}});
 				
-				
-				JButton btnCancelar = new JButton("Cancelar");
+				RoundJButton btnCancelar = new RoundJButton("#EB5041");
+				btnCancelar.setText("Cancelar");
 				btnCancelar.setSize(150, 35);
-				btnCancelar.setLocation(90,720);
+				btnCancelar.setLocation(90,750);
 				btnCancelar.setBackground(Color.red);
 				miCuenta.add(btnCancelar);
 				
@@ -1322,7 +1361,7 @@ public class Ventana extends JFrame{
 		
 		JPanel panelAyuda = new JPanel();
 		panelAyuda.setVisible(true);
-		panelAyuda.setSize(550, 800);
+		panelAyuda.setSize(550, 900);
 		panelAyuda.setBackground(Color.decode("#5A51C4"));
 		panelAyuda.setLayout(null);
 		
@@ -1330,9 +1369,9 @@ public class Ventana extends JFrame{
 		ponerMenuSuperior(panelAyuda);
 
 		JLabel label = new JLabel("¿Cómo crear un usuario?");
-		label.setFont(new Font("Arial", Font.BOLD, 24));
-		label.setSize(400,40);
-		label.setLocation(110,50);
+		label.setFont(new Font("Arial", Font.BOLD, 34));
+		label.setSize(500,40);
+		label.setLocation(80,80);
 		panelAyuda.add(label);
 		
 		
@@ -1346,15 +1385,21 @@ public class Ventana extends JFrame{
 				+"\n 8. Listo, el usuario se ha creado.");
 		txtArea1.setSize(400,200);
 		txtArea1.setLocation(80,200);
+		txtArea1.setFont(new Font("Arial", Font.BOLD, 18));
 		//txtArea1.setBackground(Color.red);
 	
+		JScrollPane scroll = new JScrollPane(txtArea1);
+
+		 
+		 scroll.setBounds(80,200,400,200);
 
 		
-		panelAyuda.add(txtArea1);
+		panelAyuda.add(scroll);
 		
 		
 		
-		JButton btnCrearUsuario = new JButton("Crear un usuario ahora");
+		RoundJButton btnCrearUsuario = new RoundJButton("#54EB9A");
+		btnCrearUsuario.setText("Crear un usuario ahora");
 		btnCrearUsuario.setSize(200, 35);
 		btnCrearUsuario.setLocation(180,450);
 		btnCrearUsuario.setBackground(Color.decode("#4187FA"));
