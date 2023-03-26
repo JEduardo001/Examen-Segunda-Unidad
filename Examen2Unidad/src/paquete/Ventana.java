@@ -3,8 +3,11 @@ package paquete;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.geom.RoundRectangle2D;
+import java.awt.image.BufferedImage;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -12,17 +15,23 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-
-
+import javax.swing.ScrollPaneConstants;
+import javax.swing.UIManager;
+import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
+import javax.swing.table.DefaultTableModel;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.Insets;
+import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
@@ -33,7 +42,9 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Iterator;
+import java.util.Scanner;
 
+import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -55,13 +66,30 @@ import javax.swing.JTextField;
 
 public class Ventana extends JFrame{
 
-	//private String logo = "logoAA";
-	private String actual = "listaUsuarios";
+	//private String logo = "logoAA7799";
+	private String actual = "logo";
 	private String anterior = "logo";
 
 	private JPanel gran_panel = null;
+	private String nombreUsuario;
+	
+	private JTextField textFieldNombrePersona = new JTextField();
+	private JTextField textFieldNombreUser = new JTextField();
+	private JTextField textFieldEmail = new JTextField();
+	private JTextField textFieldContrasena = new JTextField();
+	private JTextField textFieldDescripcion = new JTextField();
 	
 	
+	
+	//esta variable se usa para indicar en que numero de fila estan los datos de el usuario que inicio sesion
+	//esto se usara por si quiere actualizar sus datos, al igual que el arreglo que esta debajo
+	//private int posicionFilaDatos=0;
+	private String[] datosUsuario = new String[5];
+	private String[] datos = new String[5];
+	
+
+	BufferedReader reader = null;
+	String line = null;
 	
 	public Ventana() {
 		
@@ -124,29 +152,28 @@ public class Ventana extends JFrame{
 	
 	public JPanel logo() {
 		
+		//#234987   #293F9E
+	
 		JPanel logo = new JPanel();
 		logo.setVisible(true);
-		logo.setSize(550, 600);
-		logo.setBackground(Color.decode("#293F9E"));
+		logo.setSize(550, 900);
+		logo.setBackground(Color.decode("#3880D6"));
 		logo.setLayout(null);
 	
-		
-		JLabel img = new JLabel(new ImageIcon("espacio.jfif"));
-		 img.setSize(350,230);
-		 img.setLocation(100,50);
-		logo.add(img);
-		
-		
-		 
+		ImageIcon imagen = new ImageIcon("logo.png");
 
+		RoundJLabel labelImg = new RoundJLabel();
+		labelImg.setSize(200,230);
+		labelImg.setLocation(170,90);
+		labelImg.setIcon(new ImageIcon(imagen.getImage().getScaledInstance(200, 200 , Image.SCALE_SMOOTH)));
+		logo.add(labelImg);
 
-        
-	      
-	       
-		JButton btnEntrar = new JButton("Entrar");
+		
+		RoundJButton btnEntrar = new RoundJButton();
+		btnEntrar.setText("Empezar");
 		btnEntrar.setSize(100,40);
 		btnEntrar.setBackground(Color.white);
-		btnEntrar.setLocation(200,350);
+		btnEntrar.setLocation(220,450);
 		logo.add(btnEntrar);
 		
 		btnEntrar.addActionListener(new ActionListener() {
@@ -161,24 +188,11 @@ public class Ventana extends JFrame{
 				
 				
 			}});
-		
-		
-		
-		 /*btnEntrar.setBorder(new LineBorder(Color.GRAY, 10, true) {
-	            @Override
-	            public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
-	                Graphics2D g2d = (Graphics2D) g;
-	                g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-	                g2d.setColor(getLineColor());
-	                g2d.draw(new RoundRectangle2D.Double(x, y, width - 1, height - 1, 10, 10));
-	            }
-	        });*/
-		
-		
+
 		JLabel nameAlumno = new JLabel("José Eduardo Quirarte Arce");
 		nameAlumno.setFont(new Font("Comic Sans",Font.BOLD,23));
 		nameAlumno.setSize(400, 40);
-		nameAlumno.setLocation(100, 520);
+		nameAlumno.setLocation(100, 790);
 		//nameAlumno.setOpaque(true);
 		//nameAlumno.setBackground(Color.white);
 		logo.add(nameAlumno);
@@ -197,6 +211,17 @@ public class Ventana extends JFrame{
 		login.setBackground(Color.decode("#5A51C4"));
 		login.setLayout(null);
 		
+		JPanel aviso = new JPanel();
+		aviso.setVisible(true);
+		aviso.setSize(300, 400);
+		aviso.setLocation(100,250);
+		aviso.setBackground(Color.decode("#5A51C4"));
+		aviso.setLayout(null);
+		
+		
+	
+		
+		
 		JLabel tag1 = new JLabel("Inicia Sesión", JLabel.CENTER);
 		tag1.setFont(new Font("Comic Sans",Font.BOLD,26));
 		tag1.setSize(200, 40);
@@ -211,11 +236,11 @@ public class Ventana extends JFrame{
 		tag2.setLocation(140,130);
 		login.add(tag2);
 		
-		JTextField mail = new JTextField();
-		mail.setSize(250, 30);
-		mail.setLocation(140, 150);
-		mail.setFont(new Font("Comic Sans",Font.ITALIC,15));
-		login.add(mail);
+		JTextField textFieldnombreUsuario = new JTextField();
+		textFieldnombreUsuario.setSize(250, 30);
+		textFieldnombreUsuario.setLocation(140, 150);
+		textFieldnombreUsuario.setFont(new Font("Comic Sans",Font.ITALIC,15));
+		login.add(textFieldnombreUsuario);
 		
 		JLabel tag3 = new JLabel("Contraseña");
 		tag3.setSize(200, 20);
@@ -239,14 +264,95 @@ public class Ventana extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				anterior = actual;
-				actual = "inicio";
 				
-				route();
+				boolean acceso=false;
+				nombreUsuario = textFieldnombreUsuario.getText();
+				char[] pwChrs = pwd.getPassword();
+				String password = new String(pwChrs);
+				
+				
+
+				BufferedReader reader = null;
+				//try catch es por si hay error que el programa no se cierre
+				
+					try {
+						reader = new BufferedReader( new FileReader("users.txt"));
+					} catch (FileNotFoundException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					
+					String line = null;
+					try {
+						line = reader.readLine();
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						if(line==null) {
+							System.out.println("linea: "+line);
+						}
+						e1.printStackTrace();
+					}
+					
+					
+					while(line!= null) {
+						
+					    datos = null;
+						
+
+						datos = line.split(","); 
+					
+						//esta condicion es por si la linea en la que esta en null, osea no hay nada no de error
+						if(datos[0].equals("") ) {
+					
+						}else {
+							//aqui capturo los todos los datos del usuario en caso de que desee actualiarlos
+							datosUsuario[0]=datos[0];
+							datosUsuario[1]=datos[1];
+							datosUsuario[2]=datos[2];
+							datosUsuario[3]=datos[3];
+							datosUsuario[4]=datos[4];
+
+							//String d=datos[2].replaceAll("\"", "");
+							String p=datos[3];
+							String d=datos[1];
+
+							if(d.equals(nombreUsuario) && p.equals(password)) {
+									acceso=true;
+									break;
+							}else {
+								acceso=false;
+
+							}
+							
+							
+						}
+						
+						try {
+							line= reader.readLine();
+							//posicionFilaDatos++;
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+						
+					}
+					
+					if(acceso==true) {
+						JOptionPane.showMessageDialog(null,"Bienvenido "+nombreUsuario);
+						anterior = actual;
+						actual = "inicio";
+						
+						route();
+					}else {
+						JOptionPane.showMessageDialog(null,"El usuario y contraseña no coinciden");
+						
+					}
+																
 				
 			}
 			
 		});
+		
 		
 		
 		JButton btnAtras = new JButton("Cancelar");
@@ -368,7 +474,7 @@ public class Ventana extends JFrame{
 		
 		ponerMenuSuperior(inicio);
 		
-		JLabel saludo = new JLabel("Bienvenido Eduardo");
+		JLabel saludo = new JLabel("Bienvenido "+nombreUsuario);
 		saludo.setFont(new Font("Arial", Font.BOLD, 20));
 		saludo.setSize(200,40);
 		saludo.setLocation(160,50);
@@ -403,24 +509,24 @@ public class Ventana extends JFrame{
 				tag5.setForeground(Color.white);
 				miCuenta.add(tag5);
 				
-				JTextField mail_reg = new JTextField();
-				mail_reg.setSize(300, 30);
-				mail_reg.setLocation(100, 200);
-				mail_reg.setFont(new Font("Comic Sans",Font.ITALIC,15));
-				miCuenta.add(mail_reg);
+				JTextField  nombrePersona= new JTextField();
+				nombrePersona.setSize(300, 30);
+				nombrePersona.setLocation(100, 200);
+				nombrePersona.setFont(new Font("Comic Sans",Font.ITALIC,15));
+				miCuenta.add(nombrePersona);
 				
-				JLabel labelApellidos = new JLabel("Apellidos");
-				labelApellidos.setSize(200,20);
-				labelApellidos.setFont(new Font("Arial", Font.BOLD, 15));
-				labelApellidos.setLocation(100, 240);
-				labelApellidos.setForeground(Color.white);
-				miCuenta.add(labelApellidos);
+				JLabel nombreUsuario = new JLabel("Apellidos");
+				nombreUsuario.setSize(200,20);
+				nombreUsuario.setFont(new Font("Arial", Font.BOLD, 15));
+				nombreUsuario.setLocation(100, 240);
+				nombreUsuario.setForeground(Color.white);
+				miCuenta.add(nombreUsuario);
 				
-				JTextField textFieldApellidos = new JTextField();
-				textFieldApellidos.setSize(300, 30);
-				textFieldApellidos.setLocation(100, 260);
-				textFieldApellidos.setFont(new Font("Comic Sans",Font.ITALIC,15));
-				miCuenta.add(textFieldApellidos);
+				JTextField textFieldNombreUsuario = new JTextField();
+				textFieldNombreUsuario.setSize(300, 30);
+				textFieldNombreUsuario.setLocation(100, 260);
+				textFieldNombreUsuario.setFont(new Font("Comic Sans",Font.ITALIC,15));
+				miCuenta.add(textFieldNombreUsuario);
 				
 				JLabel labelEmail = new JLabel("Correo Electrónico");
 				labelEmail.setSize(200,20);
@@ -453,6 +559,14 @@ public class Ventana extends JFrame{
 				contrasena.setFont(new Font("Comic Sans",Font.ITALIC,15));
 				miCuenta.add(contrasena);
 				
+				
+				//le ponemos sus respectivos datos del usuario a los campos, estos se tomaron cuando se inicia sesion
+				
+				nombrePersona.setText(datosUsuario[0]);
+				textFieldNombreUsuario.setText(datosUsuario[1]);
+				textFieldEmail.setText(datosUsuario[2]);
+				contrasena.setText(datosUsuario[3]);
+				
 				JButton btnActualizarDatos = new JButton("Actualizar Datos");
 				btnActualizarDatos.setSize(150, 35);
 				btnActualizarDatos.setLocation(260,440);
@@ -467,6 +581,9 @@ public class Ventana extends JFrame{
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						// TODO Auto-generated method stub
+						
+						
+						
 						anterior = actual;
 						actual = "actualizarMisDatos";
 						
@@ -474,21 +591,24 @@ public class Ventana extends JFrame{
 					}});
 				
 				
-				JButton btnVaciarDatos = new JButton("Vaciar Datos");
-				btnVaciarDatos.setSize(150, 35);
-				btnVaciarDatos.setLocation(90,440);
-				btnVaciarDatos.setBackground(Color.red);
-				miCuenta.add(btnVaciarDatos);
+				JButton btnCancelar = new JButton("Cancelar");
+				btnCancelar.setSize(150, 35);
+				btnCancelar.setLocation(90,440);
+				btnCancelar.setBackground(Color.red);
+				miCuenta.add(btnCancelar);
 				
 				
 				
 				
-				btnActualizarDatos.addActionListener(new ActionListener() {
+				btnCancelar.addActionListener(new ActionListener() {
 
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						// TODO Auto-generated method stub
+						anterior = actual;
+						actual = "inicio";
 						
+						route();
 					}});
 					
 					
@@ -502,6 +622,7 @@ public class Ventana extends JFrame{
 	}
 	
 	public JPanel actualizarMisDatos() {
+		
 		
 		JPanel miCuenta = new JPanel();
 		miCuenta.setVisible(true);
@@ -517,9 +638,15 @@ public class Ventana extends JFrame{
 		saludo.setLocation(160,50);
 		miCuenta.add(saludo);
 		
-		
-		
+		//ponemos por defecto los datos que ya tiene el usuario en los campos, si los desea cambiar solo los cambia y 
+		//da click en actualizar info
+		textFieldNombrePersona.setText(datos[0]);
+		textFieldNombreUser.setText(datos[1]);
+		textFieldEmail.setText(datos[2]);
+		textFieldContrasena.setText(datos[3]);
+		textFieldDescripcion.setText(datos[4]);
 				
+		
 				JButton btnActualizarDatos = new JButton("Actualizar Datos");
 				btnActualizarDatos.setSize(150, 35);
 				btnActualizarDatos.setLocation(260,720);
@@ -528,34 +655,98 @@ public class Ventana extends JFrame{
 				
 				
 				
+			
 				
 				btnActualizarDatos.addActionListener(new ActionListener() {
+
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						
+						BufferedReader reader = null;
+						 BufferedWriter writer = null;
+						//tomamos los nuevos datos del usuario si es que cambio alguno
+						 datosUsuario[0]=textFieldNombrePersona.getText();
+						 datosUsuario[1]=textFieldNombreUser.getText();
+						 datosUsuario[2]=textFieldEmail.getText();
+						 datosUsuario[3]=textFieldContrasena.getText();
+						 datosUsuario[4]=textFieldDescripcion.getText();
+
+						 
+						 File archivo = new File("users.txt");
+				            Scanner lector = null;
+							try {
+								lector = new Scanner(archivo);
+							} catch (FileNotFoundException e3) {
+								// TODO Auto-generated catch block
+								e3.printStackTrace();
+							}
+				            StringBuilder contenido = new StringBuilder();
+									
+										
+									
+										//guardamos los datos anteriores del usuario
+										String datoAEliminar=datos[0]+","+datos[1]+","+datos[2]+","+datos[3]+","+datos[4];
+										//borramos los datos del usuario
+										
+										try {
+								            // Leer el contenido completo del archivo
+								            while (lector.hasNextLine()) {
+								                String linea = lector.nextLine();
+								                contenido.append(linea).append("\n");
+								            }
+								           lector.close();
+
+								          
+								            String contenidoActualizado = contenido.toString().replace(datoAEliminar, "");
+
+								            // Escribir el contenido actualizado en el archivo
+								            FileWriter escritor = new FileWriter(archivo);
+								            escritor.write(contenidoActualizado);
+								            escritor.close();
+								        } catch (IOException e1) {
+								            System.out.println("Error al actualizar el archivo: " + e1.getMessage());
+								        }
+										
+									
+							 
+										try {
+											writer = new BufferedWriter(new FileWriter("users.txt", true));
+										} catch (IOException e2) {
+											// TODO Auto-generated catch block
+											e2.printStackTrace();
+										}
+
+												try {
+													//añadimos el usuario con sus nuevos datos
+													writer.write(datosUsuario[0]+","+datosUsuario[1]+","+datosUsuario[2]+","+datosUsuario[3]+","+datosUsuario[4]);
+													writer.close();
+													JOptionPane.showMessageDialog(null,"Registro Correcto en el sistema ");
+												} catch (IOException e1) {
+													// TODO Auto-generated catch block
+													e1.printStackTrace();
+												}
+
+					}});
+				
+				
+				JButton btncCancelar = new JButton("Cancelar");
+				btncCancelar.setSize(150, 35);
+				btncCancelar.setLocation(90,720);
+				btncCancelar.setBackground(Color.red);
+				miCuenta.add(btncCancelar);
+				
+				
+				
+				
+				btncCancelar.addActionListener(new ActionListener() {
 
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						// TODO Auto-generated method stub
 						anterior = actual;
-						actual = "actualizarMisDatos";
+						actual = "miCuenta";
 						
 						route();
-					}});
-				
-				
-				JButton btnVaciarDatos = new JButton("Vaciar Datos");
-				btnVaciarDatos.setSize(150, 35);
-				btnVaciarDatos.setLocation(90,720);
-				btnVaciarDatos.setBackground(Color.red);
-				miCuenta.add(btnVaciarDatos);
-				
-				
-				
-				
-				btnActualizarDatos.addActionListener(new ActionListener() {
-
-					@Override
-					public void actionPerformed(ActionEvent e) {
-						// TODO Auto-generated method stub
-						
 					}});
 					
 					
@@ -577,25 +768,41 @@ public class Ventana extends JFrame{
 		ponerMenuSuperior(listaUsuarios);
 		
 		
-		JLabel txtListaUsuarios = new JLabel("Lista Usuarios");
+		JLabel txtListaUsuarios = new JLabel("Lista De Usuarios");
 		txtListaUsuarios.setFont(new Font("Arial", Font.BOLD, 20));
 		txtListaUsuarios.setSize(200,40);
 		txtListaUsuarios.setLocation(160,50);
 		listaUsuarios.add(txtListaUsuarios);
 		
+		JComboBox listaUser = new JComboBox();
+		listaUser.setSize(300,40);
+		listaUser.setLocation(90,120);
+		listaUser.addItem("Editar a: "+datosUsuario[0]);
+		listaUser.addItem("dadas");
+		listaUsuarios.add(listaUser);
 		
-	
+		JButton editarUser= new JButton("Editar a: "+datosUsuario[0]);
+		editarUser.setSize(200,40);
+		editarUser.setLocation(140,190);
+		listaUsuarios.add(editarUser);
+		
+		
+		editarUser.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+								
+				anterior = actual;
+				actual = "actualizarMisDatos";
+				
+				route();
+				
+				
+			}});
+		
 		JButton btnEliminar = new JButton("Eliminar");
 		btnEliminar.setSize(50,50);
-		
-		 String [] nombresColumnas= {"Usuario","Nombre","Acciones"};
-		 Object [][] datosFila= {
-				{"Edu","Eduardo",btnEliminar},
-				{"Edu","Eduardo",btnEliminar}
-			
-		
-		};
-		 
+ 
 		btnEliminar.addActionListener(new ActionListener() {
 
 			@Override
@@ -603,23 +810,122 @@ public class Ventana extends JFrame{
 				// TODO Auto-generated method stub
 				System.out.println("holaa");
 			}});
-	     
-	      String n="edas";
-		 DefaultTableModel mod = new DefaultTableModel(datosFila,nombresColumnas);
-		 JTable tablaUsuarios = new JTable(mod);
-		 JScrollPane scroll = new JScrollPane(tablaUsuarios);
-		 tablaUsuarios.getColumn("Acciones").setCellRenderer(new tabla(n));
-		 scroll.setBounds(80,250,400,200);
-			
-					
-		listaUsuarios.add(scroll);
-		
-		
-		
-		
-		
+
+		//se agrega la tabla 
+		listaUsuarios.add(cargarTabla());
+
 		return listaUsuarios;
 		
+	}
+	
+	public JScrollPane cargarTabla() {
+		
+		BufferedReader reader = null;
+		//try catch es por si hay error que el programa no se cierre
+		
+			try {
+				reader = new BufferedReader( new FileReader("users.txt"));
+			} catch (FileNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
+			String line = null;
+			try {
+				line = reader.readLine();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				if(line==null) {
+					System.out.println("linea: "+line);
+				}
+				e1.printStackTrace();
+			}
+			int cantFilas=0;
+			//esto es para saber que tamano tendra la tabla
+			while(line!= null) {
+				
+			  
+				if(line!="") {
+					cantFilas++;
+				}
+				
+				try {
+					line= reader.readLine();
+					//posicionFilaDatos++;
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+			}
+			//tabla
+			 String [] nombresColumnas= {"Nombre","Nombre de Usuario","Correo Electrónico","Contraseña","Descripción","Acciones"};
+			
+			
+			Object[][] datosUsuarios = new Object[cantFilas][6];
+			
+			try {
+				reader = new BufferedReader(new FileReader("users.txt"));
+			} catch (FileNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
+			try {
+				line = reader.readLine();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			 // este while es para meter los datos en la matriz que tiene los datos de las filas
+			 int fila=0;
+			
+			 while (line != null) {
+					
+					String[] datos = null;
+					
+					datos = line.split(",");
+					
+					//esta condicion es por si la linea en la que esta en null, osea no hay nada no de error
+					//ya que hay espacios vacios en users.txt cuando se actualizan los datos de algun usuario
+					if(datos[0].equals("")) {
+						
+					}else {
+						datosUsuarios[fila][0]=datos[0];
+						datosUsuarios[fila][1]=datos[1];
+						datosUsuarios[fila][2]=datos[2];
+						datosUsuarios[fila][3]=datos[3];
+						datosUsuarios[fila][4]=datos[4];
+					
+						
+						fila++;
+					}
+
+					
+					try {
+						line = reader.readLine();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+			}
+			
+			
+			 
+			 DefaultTableModel mod = new DefaultTableModel(datosUsuarios,nombresColumnas);
+			 JTable tablaUsuarios = new JTable(mod);
+			 JScrollPane scroll = new JScrollPane(tablaUsuarios);
+
+			 tablaUsuarios.getColumn("Acciones").setCellRenderer(new tabla());
+			 scroll.setBounds(80,250,400,200);
+				
+				
+				
+				
+			return scroll;
+			
+			
 	}
 	
 	//esta funcion es para reutilizar el codigo que tiene el momento de crear un nuevo usuario y modificar los datos de uno
@@ -636,24 +942,24 @@ public class Ventana extends JFrame{
 				miCuenta.add(tag5);
 				
 				
-				JTextField mail_reg = new JTextField();
-				mail_reg.setSize(300, 30);
-				mail_reg.setLocation(100, 200);
-				mail_reg.setFont(new Font("Comic Sans",Font.ITALIC,15));
-				miCuenta.add(mail_reg);
 				
-				JLabel labelApellidos = new JLabel("Apellidos");
-				labelApellidos.setSize(200,20);
-				labelApellidos.setFont(new Font("Arial", Font.BOLD, 15));
-				labelApellidos.setLocation(100, 240);
-				labelApellidos.setForeground(Color.white);
-				miCuenta.add(labelApellidos);
+				textFieldNombrePersona.setSize(300, 30);
+				textFieldNombrePersona.setLocation(100, 200);
+				textFieldNombrePersona.setFont(new Font("Comic Sans",Font.ITALIC,15));
+				miCuenta.add(textFieldNombrePersona);
 				
-				JTextField textFieldApellidos = new JTextField();
-				textFieldApellidos.setSize(300, 30);
-				textFieldApellidos.setLocation(100, 260);
-				textFieldApellidos.setFont(new Font("Comic Sans",Font.ITALIC,15));
-				miCuenta.add(textFieldApellidos);
+				JLabel labelUser= new JLabel("Usuario");
+				labelUser.setSize(200,20);
+				labelUser.setFont(new Font("Arial", Font.BOLD, 15));
+				labelUser.setLocation(100, 240);
+				labelUser.setForeground(Color.white);
+				miCuenta.add(labelUser);
+				
+				
+				textFieldNombreUser.setSize(300, 30);
+				textFieldNombreUser.setLocation(100, 260);
+				textFieldNombreUser.setFont(new Font("Comic Sans",Font.ITALIC,15));
+				miCuenta.add(textFieldNombreUser);
 				
 				JLabel labelEmail = new JLabel("Correo Electrónico");
 				labelEmail.setSize(200,20);
@@ -662,7 +968,7 @@ public class Ventana extends JFrame{
 				labelEmail.setForeground(Color.white);
 				miCuenta.add(labelEmail);
 				
-				JTextField textFieldEmail = new JTextField();
+				
 				textFieldEmail.setSize(300, 30);
 				textFieldEmail.setLocation(100, 320);
 				textFieldEmail.setFont(new Font("Comic Sans",Font.ITALIC,15));
@@ -680,11 +986,11 @@ public class Ventana extends JFrame{
 				
 				
 				
-				JTextField contrasena = new JTextField();
-				contrasena.setSize(300, 30);
-				contrasena.setLocation(100, 390);
-				contrasena.setFont(new Font("Comic Sans",Font.ITALIC,15));
-				miCuenta.add(contrasena);
+			
+				textFieldContrasena.setSize(300, 30);
+				textFieldContrasena.setLocation(100, 390);
+				textFieldContrasena.setFont(new Font("Comic Sans",Font.ITALIC,15));
+				miCuenta.add(textFieldContrasena);
 				
 			
 					
@@ -697,7 +1003,7 @@ public class Ventana extends JFrame{
 				labelDescripcion.setForeground(Color.white);
 				miCuenta.add(labelDescripcion);
 				
-				JTextField textFieldDescripcion = new JTextField();
+				
 				textFieldDescripcion.setSize(300, 100);
 				textFieldDescripcion.setLocation(100, 450);
 				textFieldDescripcion.setFont(new Font("Comic Sans",Font.ITALIC,15));
@@ -774,50 +1080,147 @@ public class Ventana extends JFrame{
 		saludo.setLocation(160,50);
 		miCuenta.add(saludo);
 				
-				JButton btnActualizarDatos = new JButton("Actualizar Datos");
-				btnActualizarDatos.setSize(150, 35);
-				btnActualizarDatos.setLocation(260,720);
-				btnActualizarDatos.setBackground(Color.blue);
-				miCuenta.add(btnActualizarDatos);
+				JButton btnCrearNuevoUsuario = new JButton("Actualizar Datos");
+				btnCrearNuevoUsuario.setSize(150, 35);
+				btnCrearNuevoUsuario.setLocation(260,720);
+				btnCrearNuevoUsuario.setBackground(Color.blue);
+				miCuenta.add(btnCrearNuevoUsuario);
 				
 				
 				
 				
-				btnActualizarDatos.addActionListener(new ActionListener() {
+				btnCrearNuevoUsuario.addActionListener(new ActionListener() {
 
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						// TODO Auto-generated method stub
-						anterior = actual;
-						actual = "actualizarMisDatos";
+						boolean acceso=false;
+						String nombrePersona = textFieldNombrePersona.getText();
+						String nombreUser = textFieldNombreUser.getText();
+						String email = textFieldEmail.getText();
+						String contrasena = textFieldContrasena.getText();
+						String descripcion = textFieldDescripcion.getText();
+				
+						if(nombreUser.equals("") || contrasena.equals("")) {
+							JOptionPane.showMessageDialog(null,"Error, Los campos nombre de usuario y contraseña no pueden estar vacios ");
+						}else {
+							
+							System.out.println(comprobarSiUsuarioExiste(nombreUser,contrasena));
+							if(comprobarSiUsuarioExiste(nombreUser,contrasena)==false) {
+
+								 BufferedWriter writer = null;
+								 
+								try {
+									writer = new BufferedWriter(new FileWriter("users.txt", true));
+								} catch (IOException e2) {
+									// TODO Auto-generated catch block
+									e2.printStackTrace();
+								}
+
+								try {
+									writer.newLine();
+								} catch (IOException e2) {
+									// TODO Auto-generated catch block
+									e2.printStackTrace();
+								}
+
+										try {
+								
+											writer.write(nombrePersona+","+nombreUser+","+email+","+contrasena+","+descripcion);
+											writer.close();
+											
+										} catch (IOException e1) {
+											// TODO Auto-generated catch block
+											e1.printStackTrace();
+										}
+			
+									JOptionPane.showMessageDialog(null,"Registro Correcto en el sistema ");
+							}else {
+								JOptionPane.showMessageDialog(null,"Datos ya registrados! Porfavor escoge otros");
+							}
+							
+						}
 						
-						route();
+			
 					}});
 				
 				
-				JButton btnVaciarDatos = new JButton("Vaciar Datos");
-				btnVaciarDatos.setSize(150, 35);
-				btnVaciarDatos.setLocation(90,720);
-				btnVaciarDatos.setBackground(Color.red);
-				miCuenta.add(btnVaciarDatos);
+				JButton btnCancelar = new JButton("Cancelar");
+				btnCancelar.setSize(150, 35);
+				btnCancelar.setLocation(90,720);
+				btnCancelar.setBackground(Color.red);
+				miCuenta.add(btnCancelar);
 				
 				
 				
 				
-				btnActualizarDatos.addActionListener(new ActionListener() {
+				btnCancelar.addActionListener(new ActionListener() {
 
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						// TODO Auto-generated method stub
 						
 					}});
-					
-					
-		
-		
-		
+
 		
 		return miCuenta;
+		
+	}
+	
+	public boolean comprobarSiUsuarioExiste(String nombreUser,String contrasena) {
+		
+		boolean existe=false;
+		
+
+		try {
+			reader = new BufferedReader( new FileReader("users.txt"));
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		try {
+			line = reader.readLine();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			if(line==null) {
+				System.out.println("linea: "+line);
+			}
+			e1.printStackTrace();
+		}
+		while(line!= null) {
+			
+		    datos = null;
+
+			datos = line.split(","); 
+			
+			if(datos[0].equals("")) {
+				
+			}else {
+				
+				if(datos[1].equals(nombreUser) && datos[3].equals(contrasena)) {
+					
+					existe=true;
+					break;
+				}else {
+					existe=false;
+				}
+			}
+					
+
+			try {
+				line= reader.readLine();
+				//posicionFilaDatos++;
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
+		}
+		
+		return existe;
+		
+		
 		
 	}
 	public JPanel ponerMenuSuperior(JPanel panel) {
@@ -929,16 +1332,48 @@ public class Ventana extends JFrame{
 		JLabel label = new JLabel("¿Cómo crear un usuario?");
 		label.setFont(new Font("Arial", Font.BOLD, 24));
 		label.setSize(400,40);
-		label.setLocation(160,50);
+		label.setLocation(110,50);
 		panelAyuda.add(label);
 		
 		
+		JTextArea  txtArea1 = new JTextArea("1. Hacer click en la opción \"Usuario\" en el menú superior."
+				+"\n 2. Hacer click en la opción \"Crear Usuario\" en el menu desplegado."
+				+"\n 3. Llenar los campos solicitados."
+				+"\n 4. Escribir una pequeña descripción de ti."
+				+"\n 5. Seleccionar tu comida favorita."
+				+"\n 6. Seleccionar tu color favorito."
+				+"\n 7. Hacer click en el botón \"Crear Usuario\""
+				+"\n 8. Listo, el usuario se ha creado.");
+		txtArea1.setSize(400,200);
+		txtArea1.setLocation(80,200);
+		//txtArea1.setBackground(Color.red);
+	
 
-		JLabel instruccionCrearUsuario = new JLabel("dfkjlh<sh<h<hs<hs<hs<hs<hs<hs<hs<hs<hs<hshshssssgsbrwoihgoi"+"\n DAISHDOAIHDOIASHD");
-		instruccionCrearUsuario.setFont(new Font("Arial", Font.BOLD, 24));
-		instruccionCrearUsuario.setSize(600,40);
-		instruccionCrearUsuario.setLocation(160,200);
-		panelAyuda.add(instruccionCrearUsuario);
+		
+		panelAyuda.add(txtArea1);
+		
+		
+		
+		JButton btnCrearUsuario = new JButton("Crear un usuario ahora");
+		btnCrearUsuario.setSize(200, 35);
+		btnCrearUsuario.setLocation(180,450);
+		btnCrearUsuario.setBackground(Color.decode("#4187FA"));
+		panelAyuda.add(btnCrearUsuario);
+		
+		
+		
+		
+		btnCrearUsuario.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				// TODO Auto-generated method stub
+				anterior = actual;
+				actual = "crearNuevoUsuario";
+				
+				route();
+			}});
 		
 		
 		
