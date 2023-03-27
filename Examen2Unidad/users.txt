@@ -1,21 +1,2 @@
-
-2,2,2,2,2,2,2
-
-
-9,9,9,9,9,9,9
-0,0,0,0,0,0,0
-
-6,6,6,6,6,6,6
-7,7,7,7,7,7,7
-3,3,3,3,3,3,3
-
-
-
-4,4,4,4,4,4,4
-
-1,1,1,1,1,1,1
-
-
-edu,edu12,dasdas,123,hola me llamo edu,Boneless,Azul
-asd,asd,asd,asd,asd,Boneless,Rojo
-4,4,4,44,,Sushi,Azul
+edu,edux,edu@gmail.com,123,hola me llamo edu y mi comida favorita es la pizza y color favorito el azul,Pizza,Azul
+juan,juanito,juan@,11,hola me llamo juan,Boneless,Rojo
