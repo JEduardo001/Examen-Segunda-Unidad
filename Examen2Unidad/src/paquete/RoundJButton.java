@@ -13,10 +13,10 @@ public class RoundJButton extends JButton{
 	    private Color foregroundColor;
 	    private int borderRadius;
 
-	    public RoundJButton() {
+	    public RoundJButton(String color) {
 	        super();
-	        this.backgroundColor = Color.WHITE;
-	        this.foregroundColor = Color.BLACK;
+	        this.backgroundColor = Color.decode(color);
+	        this.foregroundColor = Color.decode(color);
 	        this.borderRadius = 10;
 	        setOpaque(false);
 	    }
