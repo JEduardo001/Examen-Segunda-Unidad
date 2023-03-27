@@ -1,13 +1,21 @@
 
-juan,juanito,juan@gmail.com,juan123,hola oy juan como eta
-dfd,dafd,dfd,fsdf,ytrt
+2,2,2,2,2,2,2
 
 
-sdas,fdsg,1,1,1
-adasdads,quirarte,ardo@gmail.com,1236,holaaa
+9,9,9,9,9,9,9
+0,0,0,0,0,0,0
 
-Eduardo,eduQuirx,edu@gmail.com,1,hola soy edu
-gg,g,g,g,g
+6,6,6,6,6,6,6
+7,7,7,7,7,7,7
+3,3,3,3,3,3,3
 
 
-1,1,1,1,fsdfsd
+
+4,4,4,4,4,4,4
+
+1,1,1,1,1,1,1
+
+
+edu,edu12,dasdas,123,hola me llamo edu,Boneless,Azul
+asd,asd,asd,asd,asd,Boneless,Rojo
+4,4,4,44,,Sushi,Azul
