@@ -702,7 +702,9 @@ public class Ventana extends JFrame {
 						
 						BufferedReader reader = null;
 						 BufferedWriter writer = null;
-						//tomamos los nuevos datos del usuario si es que cambio alguno
+						
+
+						 //tomamos los nuevos datos del usuario si es que cambio alguno
 						 datosUsuario[0]=textFieldNombrePersona.getText();
 						 datosUsuario[1]=textFieldNombreUser.getText();
 						 datosUsuario[2]=textFieldEmail.getText();
@@ -710,8 +712,7 @@ public class Ventana extends JFrame {
 						 datosUsuario[4]=textFieldDescripcion.getText();
 						 datosUsuario[5]=comidaFavorita;
 						 datosUsuario[6]=colorFavorito;
-
-
+						 
 						 //comprobamos si los datos Nombre de Usuario y contrasena ya los tiene un usuario
 						 if(!comprobarSiUsuarioExiste(datosUsuario[1],datosUsuario[3])) {
 							 File archivo = new File("users.txt");
@@ -725,8 +726,19 @@ public class Ventana extends JFrame {
 					            StringBuilder contenido = new StringBuilder();
 										
 											
-									
+									//cuanto llamar a comprobarSiusuarioExiste ahi datos[] se queda con los datos del ultimo user
+					           //cargo los datos anteriores del usuario en el que estoy 
 					            cargarDatosDelUsuario();
+					            
+					          //tomamos los nuevos datos del usuario si es que cambio alguno
+								 datosUsuario[0]=textFieldNombrePersona.getText();
+								 datosUsuario[1]=textFieldNombreUser.getText();
+								 datosUsuario[2]=textFieldEmail.getText();
+								 datosUsuario[3]=textFieldContrasena.getText();
+								 datosUsuario[4]=textFieldDescripcion.getText();
+								 datosUsuario[5]=comidaFavorita;
+								 datosUsuario[6]=colorFavorito;
+					            
 											//guardamos los datos anteriores del usuario
 											String datoAEliminar=datos[0]+","+datos[1]+","+datos[2]+","+datos[3]+","+datos[4]+","+datos[5]+","+datos[6];
 											//borramos los datos del usuario
@@ -1154,95 +1166,7 @@ public class Ventana extends JFrame {
 			
 			
 	}
-	public void actualizarTabla(int fila, int columna) {
-		
-		//al parecer cuando llamaba a la clase tabla y regresaba, por algna razon mi matriz datosUsuario 
-		//ya no tenia los datos que previamente le habia cargado por eso vuelvo a llamar a cargarTabla ya que ahi cargo la matriz datosUsuarios
-		cargarTabla();
-		// System.out.println("dentro: "+datosUsuarios[0][0]);
-		 
-		 BufferedWriter writer = null;
-		 
-		 try {
-				writer = new BufferedWriter(new FileWriter("users.txt", true));
-			} catch (IOException e2) {
-				// TODO Auto-generated catch block
-				e2.printStackTrace();
-			}
-		 
-		try {
-			reader = new BufferedReader( new FileReader("users.txt"));
-		} catch (FileNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		
-		try {
-			line = reader.readLine();
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			if(line==null) {
-				System.out.println("linea: "+line);
-			}
-			e1.printStackTrace();
-		}
-		while(line!= null) {
-			
-		    datos = null;
-
-			datos = line.split(","); 
-			
-			if(datos[0].equals("")) {
-				
-			}else {
-				
-				 
-				//aqui  vamos a buscar los el user que tiene el nombre de usuario y contrasena que buscamos 
-				//como la columna es la donde esta el boton es la 7, 7-6 =1, 1 es la posicion donde esta el dato nombre de Usuario
-				if(datos[1].equals(datosUsuarios[fila][columna-6])) {
-					
-					if(datos[3].equals(datosUsuarios[fila][columna-4])) {
-						
-						
-						borrarUser();
-								try {
-									System.out.println("borrado");
-									writer.write("");
-									writer.close();
-									
-								} catch (IOException e1) {
-									// TODO Auto-generated catch block
-									e1.printStackTrace();
-								}
-						break;
-					}
-					
-					
-				}
-					
-				
-			}
-			//System.out.println("no es igual");
-			try {
-				line= reader.readLine();
-				//posicionFilaDatos++;
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}	
-
-			
-			
-		}
-
-		listaCargada=false;
-		listaUsuarios();
-		
-		
-		
-		
-		
-	}
+	
 	public void borrarUser() {
 		 StringBuilder contenido = new StringBuilder();
 			 File archivo = new File("users.txt");
@@ -1532,7 +1456,7 @@ public class Ventana extends JFrame {
 							JOptionPane.showMessageDialog(null,"Error, Los campos nombre de usuario y contraseña no pueden estar vacios ");
 						}else {
 							
-							System.out.println(comprobarSiUsuarioExiste(nombreUser,contrasena));
+							//System.out.println(comprobarSiUsuarioExiste(nombreUser,contrasena));
 							if(comprobarSiUsuarioExiste(nombreUser,contrasena)==false) {
 
 								 BufferedWriter writer = null;
@@ -1562,11 +1486,19 @@ public class Ventana extends JFrame {
 										}
 										listaCargada=false;
 									JOptionPane.showMessageDialog(null,"Registro Correcto en el sistema ");
+									anterior = actual;
+									actual = "login";
+									
+									route();
 							}else {
 								JOptionPane.showMessageDialog(null,"Datos Nombre de Usuario o Contraseña ya registrados! Porfavor escoge otros");
 							}
 							
 						}
+						
+						
+						
+						
 						
 			
 					}});
@@ -1602,11 +1534,12 @@ public class Ventana extends JFrame {
 		
 	}
 	
-	public boolean comprobarSiUsuarioExiste(String nombreUser,String contrasena) {
+	public boolean comprobarSiUsuarioExiste(String nombreUsuario,String contrasena) {
 		
 		boolean existe=false;
-		
-
+		//esta variable se usa como contador para saber si usuario con el mismo nombre de usuario
+		//+1 para contar mi nuebvo nombre d eusuario
+		int i=0;
 		try {
 			reader = new BufferedReader( new FileReader("users.txt"));
 		} catch (FileNotFoundException e1) {
@@ -1633,15 +1566,16 @@ public class Ventana extends JFrame {
 				
 			}else {
 				
-				if(datos[1].equals(nombreUser) && datos[3].equals(contrasena)) {
-					
-					existe=true;
-					break;
-				}else {
-					existe=false;
-				}
+					if(datos[1].equals(nombreUsuario) && datos[3].equals(contrasena)) {
+						existe=true;
+						break;
+	
+					}else {
+						//System.out.println("NO ES IGUAL: "+datos[1]+" :"+ nombreUsuario);
+						existe=false;
+					}
+	
 			}
-					
 
 			try {
 				line= reader.readLine();
@@ -1653,11 +1587,13 @@ public class Ventana extends JFrame {
 			
 		}
 		
+		
 		return existe;
 		
 		
 		
 	}
+	
 	public JPanel ponerMenuSuperior(JPanel panel) {
 		if(acceso!=false) {
 			//MENU SUPERIOR
